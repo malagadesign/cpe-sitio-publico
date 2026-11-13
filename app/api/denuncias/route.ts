@@ -1,0 +1,97 @@
+import { NextRequest, NextResponse } from 'next/server'
+import { createSupabaseServerAdminClient } from '@/lib/supabase'
+import { isSameOrigin } from '@/lib/csrf'
+import { proteger } from '@/lib/proteccion'
+import { looksLikeBot, HONEYPOT_FIELD, TIMESTAMP_FIELD } from '@/lib/antispam'
+import { enviarNotificacionDenuncia } from '@/lib/email'
+import { safeContentType } from '@/lib/upload-mime'
+
+export const dynamic = 'force-dynamic'
+
+const CATEGORIAS = [
+  'anticorrupcion', 'informacion_privilegiada', 'conflicto_interes',
+  'acoso_discriminacion', 'fraude_financiero', 'seguridad_ambiente', 'otro',
+] as const
+
+export async function POST(req: NextRequest) {
+  if (!isSameOrigin(req)) {
+    return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+  }
+
+  // 3 submissions per hour per IP — this is a sensitive channel, not a form to spam-test
+  const guardia = await proteger(req, { nombre: 'denuncias', publico: true, max: 3, ventanaMs: 60 * 60 * 1000 })
+  if (!guardia.permitido) return guardia.respuesta
+
+  try {
+    const form = await req.formData()
+    const g = (k: string) => String(form.get(k) ?? '').trim()
+
+    if (looksLikeBot(form.get(HONEYPOT_FIELD), form.get(TIMESTAMP_FIELD))) {
+      return NextResponse.json({ ok: true })
+    }
+
+    const categoria = g('categoria')
+    const descripcion = g('descripcion')
+    const anonimo = g('anonimo') === 'true'
+    const fecha_incidente = g('fecha_incidente') || null
+    const nombre = anonimo ? '' : g('nombre')
+    const email = anonimo ? '' : g('email')
+    const telefono = anonimo ? '' : g('telefono')
+    const evidencia = form.get('evidencia') as File | null
+
+    if (!CATEGORIAS.includes(categoria as typeof CATEGORIAS[number])) {
+      return NextResponse.json({ error: 'Categoría inválida' }, { status: 400 })
+    }
+    if (!descripcion || descripcion.length < 20) {
+      return NextResponse.json({ error: 'Contanos con más detalle qué pasó (mínimo 20 caracteres)' }, { status: 400 })
+    }
+
+    const supabase = createSupabaseServerAdminClient()
+
+    let evidencia_path: string | null = null
+    let evidencia_name: string | null = null
+    let evidencia_size: number | null = null
+
+    if (evidencia && evidencia.size > 0) {
+      const MAX_SIZE = 20 * 1024 * 1024
+      if (evidencia.size > MAX_SIZE) {
+        return NextResponse.json({ error: 'El archivo no puede superar 20 MB' }, { status: 400 })
+      }
+      const ext = evidencia.name.split('.').pop()?.toLowerCase() ?? ''
+      const allowedExts = ['pdf', 'png', 'jpg', 'jpeg', 'doc', 'docx']
+      if (!allowedExts.includes(ext)) {
+        return NextResponse.json({ error: 'Formato no permitido. Usá PDF, imagen o Word.' }, { status: 400 })
+      }
+      const path = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`
+      // contentType forced from the validated extension, never trusting the
+      // client's own File.type — otherwise a file named "evidencia.jpg"
+      // could be uploaded with Content-Type: text/html and get rendered as
+      // HTML when a compliance officer opens the evidence link.
+      const { error: uploadErr } = await supabase.storage
+        .from('denuncias-evidencia')
+        .upload(path, evidencia, { upsert: false, contentType: safeContentType(ext) })
+      if (!uploadErr) {
+        evidencia_path = path
+        evidencia_name = evidencia.name
+        evidencia_size = evidencia.size
+      }
+    }
+
+    const { error: insertErr } = await supabase.from('denuncias_etica').insert({
+      categoria, descripcion, fecha_incidente, anonimo,
+      nombre, email, telefono,
+      evidencia_path, evidencia_name, evidencia_size,
+    })
+
+    if (insertErr) {
+      return NextResponse.json({ error: 'Error al guardar la denuncia' }, { status: 500 })
+    }
+
+    // Best-effort — never include the actual content in the email (sensitive)
+    enviarNotificacionDenuncia({ categoria }).catch(() => {})
+
+    return NextResponse.json({ ok: true })
+  } catch {
+    return NextResponse.json({ error: 'Error interno' }, { status: 500 })
+  }
+}

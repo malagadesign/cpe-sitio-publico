@@ -1,0 +1,144 @@
+import { SPROULE_2P_2025, totalReserves } from '@/lib/reserves'
+import { formatDecimal } from '@/lib/format'
+
+export default function ReservesTable({ lang }: { lang: 'es' | 'en' }) {
+  const data  = SPROULE_2P_2025
+  const total = totalReserves(data)
+  const rows  = [...data.categories, total]
+
+  return (
+    <details className="reserves-details">
+      <summary className="reserves-summary">
+        <span className="reserves-summary__label">
+          <span className="lang-es" aria-hidden={lang !== 'es'}>Reservas 2P Certificadas — {data.certifier}</span>
+          <span className="lang-en" aria-hidden={lang !== 'en'}>Certified 2P Reserves — {data.certifier}</span>
+        </span>
+        <span className="reserves-summary__total">
+          <span className="lang-es" aria-hidden={lang !== 'es'}>Total bruto <strong>{formatDecimal(total.gross, 'es', 2)}</strong> MMboe</span>
+          <span className="lang-en" aria-hidden={lang !== 'en'}>Total gross <strong>{formatDecimal(total.gross, 'en', 2)}</strong> MMboe</span>
+        </span>
+      </summary>
+
+      <div className="reserves-body">
+        <table className="reserves-table" aria-label="Reservas 2P Sproule">
+          <thead>
+            <tr>
+              <th scope="col">
+                <span className="lang-es" aria-hidden={lang !== 'es'}>Categoría</span>
+                <span className="lang-en" aria-hidden={lang !== 'en'}>Category</span>
+              </th>
+              <th scope="col" className="num">
+                <span className="lang-es" aria-hidden={lang !== 'es'}>Bruto (MMboe)</span>
+                <span className="lang-en" aria-hidden={lang !== 'en'}>Gross (MMboe)</span>
+              </th>
+              <th scope="col" className="num">
+                <span className="lang-es" aria-hidden={lang !== 'es'}>Neto (MMboe)</span>
+                <span className="lang-en" aria-hidden={lang !== 'en'}>Net (MMboe)</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((r, i) => (
+              <tr key={r.category} data-total={i === rows.length - 1 ? '' : undefined}>
+                <td>
+                  <span className="lang-es" aria-hidden={lang !== 'es'}>{r.category}</span>
+                  <span className="lang-en" aria-hidden={lang !== 'en'}>{r.category === 'Total 2P' ? 'Total 2P' : r.category === 'Total Probadas' ? 'Total Proved' : r.category === 'Total Probables' ? 'Total Probable' : r.category}</span>
+                </td>
+                <td className="num">{formatDecimal(r.gross, lang, 2)}</td>
+                <td className="num">{formatDecimal(r.net, lang, 2)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <p className="reserves-footnote">
+          <span className="lang-es" aria-hidden={lang !== 'es'}>
+            Certificadas al 31/12/2025 bajo NI 51-101. Volúmenes en MMboe (millones de barriles de petróleo equivalente).
+            Bruto = participación de trabajo bruta; Neto = porción correspondiente a Crown Point después de regalías.
+          </span>
+          <span className="lang-en" aria-hidden={lang !== 'en'}>
+            Certified as of 31/12/2025 under NI 51-101. Volumes in MMboe (millions of barrels of oil equivalent).
+            Gross = working interest share before royalties; Net = Crown Point share after royalties.
+          </span>
+        </p>
+      </div>
+
+      <style>{`
+        .reserves-details {
+          border: 1px solid var(--rule);
+          border-radius: var(--r-lg);
+          background: var(--surface);
+          margin-top: var(--s-6);
+        }
+        .reserves-summary {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: var(--s-4);
+          padding: var(--s-5) var(--s-6);
+          cursor: pointer;
+          list-style: none;
+          flex-wrap: wrap;
+        }
+        .reserves-summary::-webkit-details-marker { display: none; }
+        .reserves-summary::after {
+          content: '▸';
+          font-size: 12px;
+          color: var(--fg-muted);
+          flex-shrink: 0;
+          transition: transform .2s;
+        }
+        details[open] .reserves-summary::after { transform: rotate(90deg); }
+        .reserves-summary__label {
+          font-size: 13px;
+          font-weight: 600;
+          color: var(--fg);
+        }
+        .reserves-summary__total {
+          font-size: 13px;
+          color: var(--fg-soft);
+          font-family: var(--font-mono, monospace);
+        }
+        .reserves-body {
+          border-top: 1px solid var(--rule);
+          padding: var(--s-4) var(--s-6) var(--s-5);
+        }
+        .reserves-table {
+          width: 100%;
+          border-collapse: collapse;
+          font-size: 13px;
+        }
+        .reserves-table th {
+          text-align: left;
+          font-size: 11px;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+          color: var(--fg-muted);
+          font-weight: 600;
+          padding: 6px 0 8px;
+          border-bottom: 1px solid var(--rule);
+        }
+        .reserves-table th.num,
+        .reserves-table td.num {
+          text-align: right;
+          font-family: var(--font-mono, monospace);
+        }
+        .reserves-table td {
+          padding: 8px 0;
+          border-bottom: 1px solid var(--rule);
+          color: var(--fg-soft);
+        }
+        .reserves-table tr:last-child td {
+          border-bottom: none;
+          font-weight: 700;
+          color: var(--fg);
+        }
+        .reserves-footnote {
+          font-size: 11px;
+          color: var(--fg-muted);
+          margin-top: var(--s-4);
+          line-height: 1.55;
+        }
+      `}</style>
+    </details>
+  )
+}

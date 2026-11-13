@@ -1,0 +1,186 @@
+/* ============== INVERSORES / ASAMBLEAS — Figma Invertir-Materiales ============== */
+
+.asm-page {
+  background: #282d4e;
+  color: #fff;
+  min-height: 60vh;
+}
+
+.asm-hero {
+  padding: clamp(96px, 12vw, 140px) 0 clamp(40px, 5vw, 56px);
+  text-align: center;
+}
+
+.asm-eyebrow {
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1;
+  color: var(--cp-green); /* #71BE00 */
+  text-transform: uppercase;
+  margin: 0 0 12px;
+}
+
+.asm-title {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 4.2vw, 70px);
+  font-weight: 700;
+  line-height: 0.985; /* 69/70 */
+  color: #fff;
+  margin: 0 auto 18px;
+  max-width: 18ch;
+}
+
+.asm-lede {
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.35;
+  color: #fff;
+  margin: 0 auto;
+  max-width: 44ch;
+}
+
+.asm-lede a {
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.asm-panel-wrap {
+  padding: 0 0 clamp(80px, 10vw, 120px);
+}
+
+.asm-panel {
+  border: 1px solid #3f609f;
+  border-radius: 45px;
+  padding: clamp(28px, 3vw, 36px) clamp(20px, 2.5vw, 32px) clamp(32px, 3.5vw, 44px);
+  max-width: 1358px;
+  margin: 0 auto;
+}
+
+.asm-search {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: 872px;
+  margin: 0 auto 20px;
+  height: 66px;
+  padding: 0 22px;
+  border: 1px solid #fff;
+  border-radius: 45px;
+  background: transparent;
+}
+
+.asm-search input {
+  flex: 1;
+  border: 0;
+  background: transparent;
+  outline: none;
+  font-family: var(--font-body);
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.asm-search input::placeholder {
+  color: #4b76b5;
+}
+
+.asm-search-icon {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  color: #fff;
+}
+
+.asm-count {
+  font-family: var(--font-body);
+  font-size: 18px;
+  color: #4b76b5;
+  text-transform: uppercase;
+  margin: 0 0 18px;
+  padding-left: 8px;
+}
+
+.asm-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.asm-row {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  min-height: 82px;
+  padding: 18px 28px;
+  border: 1px solid #4b76b5;
+  border-radius: 15px;
+}
+
+.asm-row-icon {
+  flex-shrink: 0;
+  width: 18px;
+  height: 22px;
+  display: block;
+}
+
+.asm-row-title {
+  flex: 1;
+  min-width: 0;
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: 400;
+  color: #fff;
+  margin: 0;
+}
+
+.asm-row-dl {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--cp-green);
+  text-decoration: none;
+}
+
+.asm-row-dl:hover {
+  color: var(--cp-green-soft);
+}
+
+.asm-row-dl img {
+  width: 13px;
+  height: 16px;
+  display: block;
+}
+
+.asm-empty {
+  margin: 8px;
+  font-size: 18px;
+  color: #4b76b5;
+}
+
+@media (max-width: 960px) {
+  .asm-title {
+    max-width: none;
+  }
+
+  .asm-row {
+    flex-wrap: wrap;
+    padding: 16px 18px;
+  }
+
+  .asm-row-dl {
+    margin-left: auto;
+  }
+}

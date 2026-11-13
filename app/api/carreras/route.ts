@@ -1,0 +1,142 @@
+import { NextRequest, NextResponse } from 'next/server'
+import { createSupabaseServerAdminClient } from '@/lib/supabase'
+import { isSameOrigin } from '@/lib/csrf'
+import { proteger } from '@/lib/proteccion'
+import { looksLikeBot, HONEYPOT_FIELD, TIMESTAMP_FIELD } from '@/lib/antispam'
+import { enviarConfirmacionPostulacion } from '@/lib/email'
+import { safeContentType } from '@/lib/upload-mime'
+
+export const dynamic = 'force-dynamic'
+
+export async function POST(req: NextRequest) {
+  if (!isSameOrigin(req)) {
+    return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+  }
+
+  // 3 applications per 30 minutes per IP — CV uploads are expensive
+  const guardia = await proteger(req, { nombre: 'carreras', publico: true, max: 3, ventanaMs: 30 * 60 * 1000 })
+  if (!guardia.permitido) return guardia.respuesta
+
+  try {
+    const form = await req.formData()
+    const g = (k: string) => String(form.get(k) ?? '').trim()
+
+    const nombre   = g('nombre')
+    const email    = g('email')
+    const telefono = g('telefono')
+    const linkedin = g('linkedin')
+    const area     = g('area')
+    const mensaje  = g('mensaje')
+    const cv       = form.get('cv') as File | null
+
+    // Bot defense: honeypot + submit timing. Feign success so bots don't learn.
+    if (looksLikeBot(form.get(HONEYPOT_FIELD), form.get(TIMESTAMP_FIELD))) {
+      return NextResponse.json({ ok: true })
+    }
+
+    if (!nombre || !email || !area) {
+      return NextResponse.json({ error: 'Faltan campos requeridos' }, { status: 400 })
+    }
+
+    // Structured experience data → stored in JSONB column
+    const datos = {
+      nivel_estudios:    g('nivel_estudios')    || null,
+      carrera:           g('carrera')           || null,
+      anios_experiencia: g('anios_experiencia') || null,
+      anios_sector:      g('anios_sector')      || null,
+      disponibilidad:    g('disponibilidad')    || null,
+      relocacion:        g('relocacion')        || null,
+      ingles_nivel:      g('ingles_nivel')      || null,
+      otros_idiomas:     g('otros_idiomas')     || null,
+      pretension:        g('pretension')        || null,
+    }
+
+    const supabase = createSupabaseServerAdminClient()
+
+    let cv_path: string | null = null
+    let cv_name: string | null = null
+    let cv_size: number | null = null
+
+    // Find or create the candidate (deduped by email)
+    const { data: existingCandidato } = await supabase
+      .from('candidatos')
+      .select('id')
+      .ilike('email', email)
+      .maybeSingle()
+
+    let candidatoId = existingCandidato?.id as string | undefined
+
+    if (candidatoId) {
+      // Per-email: one application per 24 hours
+      const { data: recent } = await supabase
+        .from('postulaciones')
+        .select('id')
+        .eq('candidato_id', candidatoId)
+        .gte('created_at', new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString())
+        .limit(1)
+      if (recent && recent.length > 0) {
+        return NextResponse.json({ error: 'Ya registramos tu postulación. Podés volver a intentarlo en 24 horas.' }, { status: 429 })
+      }
+      await supabase.from('candidatos').update({ nombre, telefono, linkedin, updated_at: new Date().toISOString() }).eq('id', candidatoId)
+    } else {
+      const { data: created, error: candidatoErr } = await supabase
+        .from('candidatos')
+        .insert({ nombre, email, telefono, linkedin })
+        .select('id')
+        .single()
+      if (candidatoErr || !created) {
+        return NextResponse.json({ error: 'Error al guardar la postulación' }, { status: 500 })
+      }
+      candidatoId = created.id
+    }
+
+    if (cv && cv.size > 0) {
+      const MAX_SIZE = 5 * 1024 * 1024 // 5 MB
+      if (cv.size > MAX_SIZE) {
+        return NextResponse.json({ error: 'El CV no puede superar 5 MB' }, { status: 400 })
+      }
+
+      const ext = cv.name.split('.').pop()?.toLowerCase() ?? ''
+      const allowedExts = ['pdf', 'doc', 'docx']
+      const allowedMimes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document']
+      if (!allowedExts.includes(ext) || !allowedMimes.includes(cv.type)) {
+        return NextResponse.json({ error: 'Formato no permitido. Usá PDF, DOC o DOCX.' }, { status: 400 })
+      }
+
+      // Strip everything but word chars/hyphens — nombre is free text from the
+      // applicant, and unescaped '/' or '..' has no business in a storage key.
+      const safeName = nombre.replace(/[^\w-]+/g, '_').slice(0, 40)
+      const path = `carreras/${Date.now()}-${safeName}.${ext}`
+      const { error: uploadErr } = await supabase.storage
+        .from('documents')
+        .upload(path, cv, { upsert: false, contentType: safeContentType(ext) })
+
+      if (!uploadErr) {
+        cv_path = path
+        cv_name = cv.name
+        cv_size = cv.size
+        await supabase.from('candidato_documentos').insert({
+          candidato_id: candidatoId, tipo: 'cv',
+          storage_path: path, file_name: cv.name, file_size: cv.size,
+        })
+      }
+    }
+
+    const { error: insertErr } = await supabase.from('postulaciones').insert({
+      candidato_id: candidatoId,
+      area, mensaje,
+      cv_path, cv_name, cv_size,
+      datos,
+    })
+
+    if (insertErr) {
+      return NextResponse.json({ error: 'Error al guardar la postulación' }, { status: 500 })
+    }
+
+    enviarConfirmacionPostulacion({ nombre, email, area })
+
+    return NextResponse.json({ ok: true })
+  } catch {
+    return NextResponse.json({ error: 'Error interno' }, { status: 500 })
+  }
+}

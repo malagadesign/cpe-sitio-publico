@@ -1,0 +1,236 @@
+/* ============== INVERSORES / DIRECTORIOS — Figma Somos-Equipo y directorios ============== */
+
+.dir-page {
+  background: #fff;
+  color: var(--cp-navy-deep);
+  min-height: 60vh;
+}
+
+.dir-section {
+  padding: clamp(48px, 7vw, 96px) 0 clamp(40px, 5vw, 64px);
+  text-align: center;
+}
+
+.dir-section--tight {
+  padding-top: clamp(32px, 4vw, 48px);
+}
+
+.dir-eyebrow {
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1;
+  color: var(--cp-navy-mid);
+  text-transform: uppercase;
+  margin: 0 0 8px;
+}
+
+.dir-title {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 4.2vw, 70px);
+  font-weight: 700;
+  line-height: 0.985;
+  color: var(--cp-navy-mid);
+  margin: 0 auto 14px;
+  max-width: 18ch;
+}
+
+.dir-title--deep {
+  color: var(--cp-navy-deep);
+}
+
+.dir-lede {
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.35;
+  color: var(--cp-navy-mid);
+  margin: 0 auto clamp(28px, 3.5vw, 40px);
+  max-width: 42ch;
+}
+
+.dir-list {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 1379px;
+  text-align: left;
+}
+
+.dir-row {
+  border: 0;
+  border-radius: 25px;
+  background: #191f5c;
+  color: #fff;
+  overflow: hidden;
+}
+
+.dir-row--board {
+  background: #8185a3;
+}
+
+.dir-row-btn {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1.1fr) auto;
+  align-items: center;
+  gap: 16px 24px;
+  width: 100%;
+  min-height: 80px;
+  padding: 14px clamp(20px, 2.8vw, 52px);
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+}
+
+.dir-row-name {
+  font-family: var(--font-display);
+  font-size: clamp(22px, 2.2vw, 39px);
+  font-weight: 700;
+  line-height: 1.15;
+  margin: 0;
+}
+
+.dir-row-role {
+  font-family: var(--font-body);
+  font-size: clamp(13px, 1.1vw, 18px);
+  font-weight: 400;
+  line-height: 1.25;
+  text-transform: uppercase;
+  margin: 0;
+  opacity: 0.95;
+}
+
+.dir-row-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  justify-self: end;
+}
+
+.dir-row-more img {
+  width: 29px;
+  height: 15px;
+  display: block;
+  transform: rotate(180deg); /* Figma: flecha a la derecha */
+  transition: transform 0.2s ease;
+}
+
+.dir-row.is-open .dir-row-more img {
+  transform: rotate(270deg); /* abierto: apunta abajo */
+}
+
+.dir-row-panel {
+  display: none;
+  padding: 0 clamp(20px, 2.8vw, 52px) 22px;
+}
+
+.dir-row.is-open .dir-row-panel {
+  display: block;
+}
+
+.dir-row-panel p {
+  margin: 0;
+  max-width: 72ch;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.dir-photo {
+  padding: clamp(24px, 3vw, 40px) 0 clamp(48px, 6vw, 80px);
+}
+
+.dir-photo img {
+  display: block;
+  width: 100%;
+  max-width: 1379px;
+  height: auto;
+  margin: 0 auto;
+  border-radius: 45px;
+  object-fit: cover;
+  aspect-ratio: 1379 / 778;
+}
+
+.dir-esg {
+  padding: clamp(56px, 8vw, 100px) 0 clamp(72px, 9vw, 120px);
+  text-align: center;
+}
+
+.dir-esg-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 250px;
+  height: 39px;
+  padding: 0 28px;
+  margin-top: 8px;
+  border-radius: 45px;
+  background: var(--cp-green);
+  color: var(--cp-navy-mid);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.dir-esg-cta:hover {
+  filter: brightness(1.05);
+}
+
+.dir-esg-photo {
+  margin-top: clamp(36px, 5vw, 56px);
+}
+
+.dir-esg-photo img {
+  display: block;
+  width: 100%;
+  max-width: 1379px;
+  height: auto;
+  margin: 0 auto;
+  border-radius: 45px;
+  object-fit: cover;
+  aspect-ratio: 16 / 9;
+}
+
+@media (max-width: 960px) {
+  .dir-row-btn {
+    grid-template-columns: 1fr auto;
+    gap: 8px 12px;
+    padding: 16px 20px;
+  }
+
+  .dir-row-name {
+    grid-column: 1;
+    font-size: clamp(20px, 5vw, 28px);
+  }
+
+  .dir-row-role {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .dir-row-more {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+  }
+
+  .dir-photo img,
+  .dir-esg-photo img {
+    border-radius: 28px;
+  }
+}

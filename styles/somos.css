@@ -1,0 +1,358 @@
+/* ============== SOMOS / ACERCA — Figma redesign ============== */
+
+.somos-page {
+  background: var(--cp-navy-mid);
+  color: #fff;
+}
+
+/* -------- Hero -------- */
+.somos-hero {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  isolation: isolate;
+}
+.somos-hero-media {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+.somos-hero-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 40%;
+}
+.somos-hero-veil {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    #66b4dd 0%,
+    #66b4dd 15.865%,
+    rgba(255,255,255,0) 100%
+  );
+  mix-blend-mode: multiply;
+  opacity: 0.85;
+  pointer-events: none;
+}
+.somos-hero-veil::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 40%, rgba(25,31,92,0.55) 72%, rgba(25,31,92,0.88) 100%);
+}
+.somos-hero-content {
+  position: relative;
+  z-index: 1;
+  padding-top: 140px;
+  padding-bottom: clamp(72px, 10vh, 120px);
+  width: 100%;
+  color: #fff;
+}
+.somos-hero-eyebrow {
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #fff;
+  margin: 0 0 12px;
+}
+.somos-hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(42px, 4.6vw, 70px);
+  font-weight: 700;
+  line-height: 0.985;
+  letter-spacing: 0;
+  text-transform: none;
+  max-width: 12ch;
+  margin: 0 0 18px;
+  color: #fff;
+}
+.somos-hero-lede {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.25;
+  max-width: 36ch;
+  color: #fff;
+  margin: 0;
+}
+
+/* -------- Quiénes / Misión blocks -------- */
+.somos-block {
+  padding: clamp(64px, 8vw, 96px) 0;
+  background: var(--cp-navy-mid);
+}
+.somos-block--alt {
+  background: var(--cp-navy-mid);
+}
+.somos-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(32px, 5vw, 72px);
+  align-items: center;
+}
+.somos-split--reverse {
+  direction: rtl;
+}
+.somos-split--reverse > * {
+  direction: ltr;
+}
+.somos-title {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 4.2vw, 70px);
+  font-weight: 700;
+  line-height: 0.985;
+  color: #fff;
+  margin: 0 0 28px;
+}
+.somos-copy {
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.45;
+  color: var(--cp-muted-soft);
+  max-width: 42ch;
+}
+.somos-copy p {
+  margin: 0 0 1.1em;
+}
+.somos-copy p:last-child {
+  margin-bottom: 0;
+}
+.somos-circle {
+  position: relative;
+  width: min(100%, 520px);
+  aspect-ratio: 1;
+  margin-inline: auto;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #0a0e28;
+}
+.somos-circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.somos-circle-img--quienes {
+  object-position: center 30%;
+}
+.somos-circle-img--workers {
+  object-position: center 40%;
+}
+
+/* Misión / Visión / Principios */
+.somos-mvp {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-width: 42ch;
+}
+.somos-mvp-item {
+  padding: 22px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.35);
+}
+.somos-mvp-item:first-child {
+  padding-top: 0;
+}
+.somos-mvp-item:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+.somos-mvp-label {
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--cp-green);
+  margin: 0 0 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+.somos-mvp-item p,
+.somos-mvp-item ul {
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.somos-mvp-item li + li {
+  margin-top: 2px;
+}
+
+/* -------- Timeline -------- */
+.somos-history {
+  padding: clamp(64px, 8vw, 100px) 0 clamp(80px, 10vw, 120px);
+  background: var(--cp-navy-mid);
+  text-align: center;
+}
+.somos-history-eyebrow {
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--cp-green);
+  margin: 0 0 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.somos-history-title {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 4vw, 70px);
+  font-weight: 700;
+  line-height: 0.985;
+  color: #fff;
+  margin: 0 0 clamp(40px, 5vw, 64px);
+}
+.somos-timeline-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.somos-timeline-nav {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255,255,255,0.55);
+  background: transparent;
+  color: #fff;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: background var(--t-fast), border-color var(--t-fast);
+}
+.somos-timeline-nav:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: #fff;
+}
+.somos-timeline-nav:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+.somos-timeline {
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  flex: 1;
+  padding: 8px 0 4px;
+  align-items: stretch;
+}
+.somos-timeline::-webkit-scrollbar { display: none; }
+/* Anchos variables (Figma): cortos ~170–185, largos ~290–312 */
+.somos-timeline-item {
+  --item-w: 200px;
+  flex: 0 0 auto;
+  width: calc(var(--item-w) + 80px); /* content + padding 40×2 */
+  box-sizing: border-box;
+  scroll-snap-align: start;
+  text-align: center;
+  padding: 0 40px;
+  border-left: 1px solid rgba(255,255,255,0.35);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.somos-timeline-item:first-child {
+  border-left: 0;
+  padding-left: 0;
+  width: calc(var(--item-w) + 40px);
+}
+.somos-timeline-year {
+  font-family: var(--font-mono);
+  font-size: clamp(40px, 4vw, 70px);
+  font-weight: 700;
+  line-height: 0.985;
+  color: var(--cp-green-soft);
+  margin: 0 0 12px;
+  text-transform: uppercase;
+  width: max-content;
+  max-width: none;
+  white-space: nowrap;
+}
+.somos-timeline-text {
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.35;
+  color: var(--cp-muted-soft);
+  margin: 0;
+  width: 100%;
+  max-width: var(--item-w);
+}
+
+/* -------- Legacy CMS blocks under Figma redesign -------- */
+.somos-legacy {
+  background: var(--cp-navy-deep);
+  color: #fff;
+  padding: clamp(48px, 6vw, 80px) 0;
+}
+.somos-legacy .section-block {
+  padding: var(--s-10) 0;
+  border-top: 1px solid rgba(255,255,255,0.12);
+}
+.somos-legacy .section-block:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+.somos-legacy .eyebrow {
+  color: var(--cp-green) !important;
+}
+.somos-legacy h2,
+.somos-legacy h3,
+.somos-legacy strong {
+  color: #fff;
+}
+.somos-legacy .lede,
+.somos-legacy p,
+.somos-legacy .person p,
+.somos-legacy .director-list li {
+  color: var(--cp-muted-soft);
+}
+.somos-legacy .person {
+  background: rgba(255,255,255,0.04);
+  border-color: rgba(255,255,255,0.12);
+}
+.somos-legacy .strat-card,
+.somos-legacy .director-list li,
+.somos-legacy .advantages-list li {
+  border-color: rgba(255,255,255,0.12);
+}
+.somos-legacy .left-rail a {
+  color: rgba(255,255,255,0.7);
+}
+.somos-legacy .left-rail a.active,
+.somos-legacy .left-rail a:hover {
+  color: var(--cp-green);
+}
+
+@media (max-width: 960px) {
+  .somos-split,
+  .somos-split--reverse {
+    grid-template-columns: 1fr;
+    direction: ltr;
+  }
+  .somos-circle {
+    width: min(100%, 420px);
+    order: -1;
+  }
+  .somos-timeline-item {
+    padding: 0 24px;
+    width: calc(var(--item-w) + 48px);
+  }
+  .somos-timeline-item:first-child {
+    padding-left: 0;
+    width: calc(var(--item-w) + 24px);
+  }
+}

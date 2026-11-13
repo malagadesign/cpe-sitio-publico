@@ -1,0 +1,185 @@
+/* ============== INVERSORES / GOBIERNO — Figma Invertir-Gobierno ============== */
+
+.gob-page {
+  background: #fff;
+  color: var(--cp-navy-deep);
+  min-height: 60vh;
+}
+
+.gob-hero {
+  padding: clamp(96px, 12vw, 140px) 0 clamp(40px, 5vw, 56px);
+  text-align: center;
+}
+
+.gob-eyebrow {
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1;
+  color: var(--cp-navy-deep);
+  text-transform: uppercase;
+  margin: 0 0 12px;
+}
+
+.gob-title {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 4.2vw, 70px);
+  font-weight: 700;
+  line-height: 0.985;
+  color: var(--cp-navy-deep);
+  margin: 0 auto 18px;
+  max-width: 16ch;
+}
+
+.gob-lede {
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.35;
+  color: var(--cp-navy-deep);
+  margin: 0 auto;
+  max-width: 48ch;
+}
+
+.gob-panel-wrap {
+  padding: 0 0 clamp(80px, 10vw, 120px);
+}
+
+.gob-panel {
+  background: #dbd9e4;
+  border-radius: 45px;
+  padding: clamp(28px, 3vw, 36px) clamp(20px, 2.5vw, 32px) clamp(32px, 3.5vw, 44px);
+  max-width: 1358px;
+  margin: 0 auto;
+}
+
+.gob-search {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: 872px;
+  margin: 0 auto 20px;
+  height: 66px;
+  padding: 0 22px;
+  border: 1px solid #0d1237;
+  border-radius: 45px;
+  background: #fff;
+}
+
+.gob-search input {
+  flex: 1;
+  border: 0;
+  background: transparent;
+  outline: none;
+  font-family: var(--font-body);
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #0d1237;
+}
+
+.gob-search input::placeholder {
+  color: #0d1237;
+  opacity: 0.85;
+}
+
+.gob-search-icon {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  color: #0d1237;
+}
+
+.gob-count {
+  font-family: var(--font-body);
+  font-size: 18px;
+  color: #0d1237;
+  text-transform: uppercase;
+  margin: 0 0 18px;
+  padding-left: 8px;
+}
+
+.gob-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.gob-row {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  min-height: 82px;
+  padding: 18px 28px;
+  border: 1px solid #0d1237;
+  border-radius: 15px;
+  background: transparent;
+}
+
+.gob-row-icon {
+  flex-shrink: 0;
+  width: 18px;
+  height: 22px;
+  display: block;
+}
+
+.gob-row-title {
+  flex: 1;
+  min-width: 0;
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: 400;
+  color: #0d1237;
+  margin: 0;
+  line-height: 1.25;
+}
+
+.gob-row-dl {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #0d1237;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.gob-row-dl:hover {
+  color: var(--cp-green);
+}
+
+.gob-row-dl img {
+  width: 13px;
+  height: 16px;
+  display: block;
+}
+
+.gob-empty {
+  margin: 8px;
+  font-size: 18px;
+  color: #0d1237;
+  opacity: 0.7;
+}
+
+@media (max-width: 960px) {
+  .gob-title {
+    max-width: none;
+  }
+
+  .gob-row {
+    flex-wrap: wrap;
+    padding: 16px 18px;
+  }
+
+  .gob-row-dl {
+    margin-left: auto;
+  }
+}

@@ -1,0 +1,29 @@
+@import '../styles/tokens.css';
+@import '../styles/home.css';
+@import '../styles/somos.css';
+@import '../styles/operaciones.css';
+@import '../styles/inversores.css';
+@import '../styles/reportes.css';
+@import '../styles/asambleas.css';
+@import '../styles/financieros.css';
+@import '../styles/gobierno.css';
+@import '../styles/estrategia.css';
+@import '../styles/directorios.css';
+@import '../styles/esg.css';
+@import '../styles/contacto.css';
+@import '../styles/legal.css';
+@import '../styles/denuncias.css';
+@import '../styles/pages.css';
+
+/* Screen-reader only (tables captions, skip helpers) */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

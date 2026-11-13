@@ -1,0 +1,180 @@
+import Link from 'next/link'
+import { notFound } from 'next/navigation'
+import type { Metadata } from 'next'
+import { createSupabaseServerAdminClient } from '@/lib/supabase'
+import { getEffectiveLang } from '@/lib/lang'
+
+export const revalidate = 60
+
+const BASE = 'https://crownpointenergy.com'
+
+type Comunicado = {
+  id: string
+  fecha: string
+  titulo_es: string
+  titulo_en: string
+  resumen_es: string
+  resumen_en: string
+  url: string
+  storage_path: string
+  tipo: string
+  periodo?: string
+  created_at?: string
+  updated_at?: string
+}
+
+async function getComunicado(id: string): Promise<Comunicado | null> {
+  const { data } = await createSupabaseServerAdminClient()
+    .from('comunicados')
+    .select('*')
+    .eq('id', id)
+    .eq('publicado', true)
+    .single()
+  return (data as Comunicado | null) ?? null
+}
+
+export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
+  const data = await getComunicado(params.id).catch(() => null)
+  if (!data) return { title: 'Comunicado | Crown Point Energy' }
+
+  const title = `${data.titulo_es || data.titulo_en} | Crown Point Energy`
+  const description = (data.resumen_es || data.resumen_en || 'Comunicado de prensa de Crown Point Energy (TSXV: CWV).').slice(0, 200)
+  const canonical = `${BASE}/comunicados/${data.id}`
+
+  return {
+    title,
+    description,
+    alternates: { canonical },
+    openGraph: {
+      type: 'article',
+      title: data.titulo_es || data.titulo_en,
+      description,
+      url: canonical,
+      siteName: 'Crown Point Energy',
+      publishedTime: data.fecha ? new Date(data.fecha + 'T12:00:00Z').toISOString() : undefined,
+    },
+    twitter: { card: 'summary', title: data.titulo_es || data.titulo_en, description },
+  }
+}
+
+const TIPO_LABELS: Record<string, { es: string; en: string }> = {
+  general:    { es: 'General',               en: 'General' },
+  resultados: { es: 'Resultados financieros', en: 'Financial results' },
+  operaciones:{ es: 'Operaciones',            en: 'Operations' },
+  mercados:   { es: 'Mercados de capital',    en: 'Capital markets' },
+  esg:        { es: 'ESG / Sostenibilidad',   en: 'ESG / Sustainability' },
+  gobierno:   { es: 'Gobierno corporativo',   en: 'Corporate governance' },
+}
+
+function fmtFecha(iso: string) {
+  const d = new Date(iso + 'T12:00:00Z')
+  return d.toLocaleDateString('es-AR', { day: '2-digit', month: 'long', year: 'numeric' })
+}
+
+function publicUrl(path: string) {
+  return `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/documents/${path}`
+}
+
+export default async function ComunicadoDetailPage({ params }: { params: { id: string } }) {
+  const data = await getComunicado(params.id)
+
+  if (!data) notFound()
+
+  const lang = await getEffectiveLang('es')
+
+  const label = TIPO_LABELS[data.tipo] ?? { es: data.tipo, en: data.tipo }
+  const docUrl = data.url || (data.storage_path ? publicUrl(data.storage_path) : null)
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'NewsArticle',
+    headline: (data.titulo_es || data.titulo_en || '').slice(0, 110),
+    description: data.resumen_es || data.resumen_en || undefined,
+    datePublished: data.fecha ? new Date(data.fecha + 'T12:00:00Z').toISOString() : undefined,
+    dateModified: data.updated_at ? new Date(data.updated_at).toISOString() : undefined,
+    mainEntityOfPage: `${BASE}/comunicados/${data.id}`,
+    author: { '@type': 'Organization', name: 'Crown Point Energy' },
+    publisher: { '@type': 'Organization', name: 'Crown Point Energy' },
+  }
+
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <section className="page-hero">
+        <div className="container">
+          <div className="crumbs">
+            <Link href="/"><span className="lang-es" aria-hidden={lang !== 'es'}>Inicio</span><span className="lang-en" aria-hidden={lang !== 'en'}>Home</span></Link>
+            <span>/</span>
+            <Link href="/comunicados"><span className="lang-es" aria-hidden={lang !== 'es'}>Comunicados</span><span className="lang-en" aria-hidden={lang !== 'en'}>Press releases</span></Link>
+            <span>/</span>
+            <span>{data.periodo || fmtFecha(data.fecha)}</span>
+          </div>
+          <div style={{ display: 'flex', gap: 12, alignItems: 'center', marginBottom: 'var(--s-4)', flexWrap: 'wrap' }}>
+            <span className="chip">
+              <span className="lang-es" aria-hidden={lang !== 'es'}>{label.es}</span>
+              <span className="lang-en" aria-hidden={lang !== 'en'}>{label.en}</span>
+            </span>
+            <span style={{ fontSize: 13, color: 'var(--fg-muted)', fontFamily: 'var(--font-mono)' }}>
+              {fmtFecha(data.fecha)}
+            </span>
+          </div>
+          <h1 style={{ marginTop: 0 }}>
+            <span className="lang-es" aria-hidden={lang !== 'es'}>{data.titulo_es}</span>
+            <span className="lang-en" aria-hidden={lang !== 'en'}>{data.titulo_en || data.titulo_es}</span>
+          </h1>
+          {(data.resumen_es || data.resumen_en) && (
+            <p style={{ marginTop: 'var(--s-4)' }}>
+              <span className="lang-es" aria-hidden={lang !== 'es'}>{data.resumen_es}</span>
+              <span className="lang-en" aria-hidden={lang !== 'en'}>{data.resumen_en || data.resumen_es}</span>
+            </p>
+          )}
+        </div>
+      </section>
+
+      <section className="section-tight">
+        <div className="container">
+          <div style={{ maxWidth: 680 }}>
+            {docUrl ? (
+              <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginBottom: 'var(--s-8)' }}>
+                <a
+                  href={docUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="btn btn-primary"
+                  style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 8 }}
+                >
+                  <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M10 13V3M6 9l4 4 4-4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/><path d="M3 17h14" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/></svg>
+                  <span className="lang-es" aria-hidden={lang !== 'es'}>Descargar comunicado</span>
+                  <span className="lang-en" aria-hidden={lang !== 'en'}>Download release</span>
+                </a>
+                <Link href="/comunicados" className="btn" style={{ textDecoration: 'none' }}>
+                  <span className="lang-es" aria-hidden={lang !== 'es'}>← Ver todos</span>
+                  <span className="lang-en" aria-hidden={lang !== 'en'}>← All releases</span>
+                </Link>
+              </div>
+            ) : (
+              <div style={{ marginBottom: 'var(--s-8)' }}>
+                <Link href="/comunicados" className="btn" style={{ textDecoration: 'none' }}>
+                  <span className="lang-es" aria-hidden={lang !== 'es'}>← Ver todos los comunicados</span>
+                  <span className="lang-en" aria-hidden={lang !== 'en'}>← All press releases</span>
+                </Link>
+              </div>
+            )}
+
+            {/* Disclaimer */}
+            <p style={{ fontSize: 12, color: 'var(--fg-muted)', lineHeight: 1.6, borderTop: '1px solid var(--rule)', paddingTop: 'var(--s-6)' }}>
+              <span className="lang-es" aria-hidden={lang !== 'es'}>
+                Este comunicado fue publicado por Crown Point Energía S.A. y/o Crown Point Energy Inc. (TSXV: CWV).
+                Las declaraciones prospectivas están sujetas a riesgos e incertidumbres que podrían diferir materialmente de los resultados reales.
+              </span>
+              <span className="lang-en" aria-hidden={lang !== 'en'}>
+                This release was published by Crown Point Energía S.A. and/or Crown Point Energy Inc. (TSXV: CWV).
+                Forward-looking statements are subject to risks and uncertainties that could cause actual results to differ materially.
+              </span>
+            </p>
+          </div>
+        </div>
+      </section>
+    </>
+  )
+}
