@@ -29,6 +29,7 @@ export default function YacimientosLeafletMap({ pins, height = 520 }: { pins: Ya
   useEffect(() => {
     const container = containerRef.current
     if (!container) return
+    const mapEl: HTMLElement = container
 
     let cancelled = false
     let map: import('leaflet').Map | null = null
@@ -44,13 +45,13 @@ export default function YacimientosLeafletMap({ pins, height = 520 }: { pins: Ya
       // React Strict Mode runs this effect twice. The first init is async, so
       // its cleanup can run before Leaflet tags the node — and the second
       // L.map() then throws "Map container is already initialized".
-      const tagged = container as HTMLElement & { _leaflet_id?: number }
+      const tagged = mapEl as HTMLElement & { _leaflet_id?: number }
       if (tagged._leaflet_id != null) {
         tagged.replaceChildren()
         delete tagged._leaflet_id
       }
 
-      map = L.map(container, {
+      map = L.map(mapEl, {
         zoomControl: true,
         scrollWheelZoom: false,
         attributionControl: true,
