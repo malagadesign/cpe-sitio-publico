@@ -546,15 +546,17 @@ html.nav-scrolling .nav-submenu {
 
 /* Invertir (2-col) / Operaciones (stack) — Figma rule with V notch */
 .nav-submenu--figma {
-  --nav-rule: var(--cp-navy-mid);
+  --nav-rule: #fff;
   display: grid;
   grid-template-columns: max-content max-content;
   column-gap: 48px;
   width: max-content;
   max-width: min(92vw, 640px);
-  padding: 16px 0 8px;
-  background: transparent;
-  color: var(--cp-navy-mid);
+  padding: 18px 28px 20px;
+  /* Fondo sólido: el submenú no se mezcla con el contenido que tiene debajo */
+  background: var(--cp-navy-deep);
+  box-shadow: 0 10px 24px rgba(5, 8, 30, 0.35);
+  color: #fff;
 }
 .nav-submenu--figma.nav-submenu--stack {
   grid-template-columns: max-content;
@@ -695,7 +697,11 @@ html:has(.asm-page) .site-header .nav-submenu--figma {
     width: auto; max-width: none;
     grid-template-columns: 1fr;
     column-gap: 0;
-    padding-top: 8px;
+    padding: 8px 0 0;
+    background: transparent;
+    box-shadow: none;
+    color: var(--cp-navy-mid);
+    --nav-rule: var(--cp-navy-mid);
   }
   .nav-submenu--figma::before,
   .nav-submenu--figma::after { display: none; }

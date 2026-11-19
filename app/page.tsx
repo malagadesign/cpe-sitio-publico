@@ -24,8 +24,6 @@ export default async function HomePage() {
   const heroTitleEn = f['hero.title.en'] || ''
   const heroLedeEs = f['hero.lede.es'] || ''
   const heroLedeEn = f['hero.lede.en'] || ''
-  const heroSubEs = f['hero.sub.es'] || 'Desarrollo que trasciende'
-  const heroSubEn = f['hero.sub.en'] || 'Development that transcends'
 
   const stats = [
     { val: f['stats.anios'] || '25+', es: 'años en upstream arg.', en: 'yrs Argentine upstream' },
@@ -66,10 +64,6 @@ export default async function HomePage() {
                   </span>
                 )}
             </h1>
-            <p className="hero-subtitle">
-              <span className="lang-es" aria-hidden={lang !== 'es'}>{heroSubEs}</span>
-              <span className="lang-en" aria-hidden={lang !== 'en'}>{heroSubEn}</span>
-            </p>
             <p className="hero-lede">
               {heroLedeEs
                 ? <span className="lang-es" aria-hidden={lang !== 'es'}>{heroLedeEs}</span>
