@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import Image from 'next/image'
 import ArgentinaMap from '@/components/ArgentinaMap'
 import type { BlockPhoto, OperationsBlock } from '@/lib/content-fetch'
@@ -146,10 +146,46 @@ export default function OpsWherePanel({
       ? `Vista del yacimiento ${active?.titulo ?? ''}`
       : `View of the ${active?.titulo ?? ''} field`)
 
+  const mapRef = useRef<HTMLDivElement>(null)
+
+  /** Ajusta la tarjeta blanca de cada callout seleccionado al tamaño real de su texto. */
+  useEffect(() => {
+    const root = mapRef.current
+    if (!root) return
+    const ids = highlightBlocks(activeId)
+    const PAD_X = 14
+    const PAD_Y = 10
+
+    function layout() {
+      root!.querySelectorAll<SVGGElement>('.ar-block').forEach(g => {
+        if (!ids.includes(g.getAttribute('data-block') ?? '')) return
+        const frame = g.querySelector<SVGRectElement>('.ar-callout-frame')
+        if (!frame) return
+        let x1 = Infinity, y1 = Infinity, x2 = -Infinity, y2 = -Infinity
+        g.querySelectorAll<SVGTextElement>('text').forEach(t => {
+          const b = t.getBBox()
+          if (!b.width) return
+          x1 = Math.min(x1, b.x); y1 = Math.min(y1, b.y)
+          x2 = Math.max(x2, b.x + b.width); y2 = Math.max(y2, b.y + b.height)
+        })
+        if (!isFinite(x1)) return
+        frame.setAttribute('x', String(x1 - PAD_X))
+        frame.setAttribute('y', String(y1 - PAD_Y))
+        frame.setAttribute('width', String(x2 - x1 + PAD_X * 2))
+        frame.setAttribute('height', String(y2 - y1 + PAD_Y * 2))
+        frame.setAttribute('rx', '14')
+      })
+    }
+
+    layout()
+    // Las fuentes web cambian el ancho del texto al cargar.
+    document.fonts?.ready.then(layout)
+  }, [activeId])
+
   const activeMapBlocks = highlightBlocks(activeId)
   const hi = activeMapBlocks.length
-    ? `:is(${activeMapBlocks.map(id => `.ops-map-visual [data-block="${id}"]`).join(', ')})`
-    : '.ops-map-visual [data-block="__none__"]'
+    ? `:is(${activeMapBlocks.map(id => `.ops-map-visual svg [data-block="${id}"]`).join(', ')})`
+    : '.ops-map-visual svg [data-block="__none__"]'
 
   return (
     <div className="ops-where-grid">
@@ -238,6 +274,7 @@ export default function OpsWherePanel({
 
       <div className="ops-map-col">
         <div
+          ref={mapRef}
           className="ops-map-visual"
           onClick={handleMapClick}
           role="group"
@@ -249,14 +286,20 @@ export default function OpsWherePanel({
               stroke: #ceef7b;
               stroke-width: 2;
             }
+            /* Tarjeta blanca que encierra el yacimiento seleccionado */
             ${hi} .ar-callout-frame {
               opacity: 1;
+              fill: #ffffff;
+              stroke: none;
+              filter: drop-shadow(0 6px 14px rgba(5, 8, 30, 0.35));
             }
             ${hi} .ar-label,
             ${hi} .ar-label--stack {
-              text-decoration: underline;
-              text-underline-offset: 3px;
-              text-decoration-color: #ceef7b;
+              fill: #1b1f4d;
+              font-weight: 700;
+            }
+            ${hi} .ar-sublabel {
+              fill: #7f85b9;
             }
           `}</style>
           <ArgentinaMap />

@@ -19,6 +19,9 @@ const COLORS = {
   legendTitle: '#FFFFFF',
 } as const
 
+/** Borde derecho común de todos los textos de los callouts (justo antes del conector). */
+const RIGHT = 1222
+
 function nx(x: number) {
   return x - VB.x
 }
@@ -97,10 +100,10 @@ export default function ArgentinaMap({ className, style }: { className?: string;
           fill={COLORS.cuyana}
         />
         <circle className="ar-hit" cx={nx(1298.461) + 3.532} cy={ny(2030.986) + 3.532} r={14} fill="transparent" />
-        <text x={nx(1038.613)} y={ny(1973.785)} className="ar-label" dominantBaseline="text-before-edge">
+        <text x={nx(RIGHT)} y={ny(1973.785)} textAnchor="end" className="ar-label" dominantBaseline="text-before-edge">
           Puesto Pozo Cercado
         </text>
-        <text x={nx(1038.613)} y={ny(2000.228)} className="ar-sublabel" dominantBaseline="text-before-edge">
+        <text x={nx(RIGHT)} y={ny(2000.228)} textAnchor="end" className="ar-sublabel" dominantBaseline="text-before-edge">
           Cuenca Cuyana • Mendoza
         </text>
       </g>
@@ -133,10 +136,10 @@ export default function ArgentinaMap({ className, style }: { className?: string;
           fill={COLORS.cuyana}
         />
         <circle className="ar-hit" cx={nx(1299.594) + 3.532} cy={ny(2060.752) + 3.532} r={14} fill="transparent" />
-        <text x={nx(1051.121)} y={ny(2047.653)} className="ar-label" dominantBaseline="text-before-edge">
+        <text x={nx(RIGHT)} y={ny(2047.653)} textAnchor="end" className="ar-label" dominantBaseline="text-before-edge">
           Chañares Herrados
         </text>
-        <text x={nx(1038.613)} y={ny(2074.096)} className="ar-sublabel" dominantBaseline="text-before-edge">
+        <text x={nx(RIGHT)} y={ny(2074.096)} textAnchor="end" className="ar-sublabel" dominantBaseline="text-before-edge">
           Cuenca Cuyana • Mendoza
         </text>
       </g>
@@ -169,10 +172,10 @@ export default function ArgentinaMap({ className, style }: { className?: string;
           fill={COLORS.neuquinaNorte}
         />
         <circle className="ar-hit" cx={nx(1296.988) + 3.532} cy={ny(2077.986) + 3.532} r={14} fill="transparent" />
-        <text x={nx(1017.965)} y={ny(2109.137)} className="ar-label" dominantBaseline="text-before-edge">
+        <text x={nx(RIGHT)} y={ny(2109.137)} textAnchor="end" className="ar-label" dominantBaseline="text-before-edge">
           Cerro de Los Leones
         </text>
-        <text x={nx(1025.574)} y={ny(2137.287)} className="ar-sublabel" dominantBaseline="text-before-edge">
+        <text x={nx(RIGHT)} y={ny(2137.287)} textAnchor="end" className="ar-sublabel" dominantBaseline="text-before-edge">
           Cuenca Neuquina • Mendoza
         </text>
       </g>
@@ -206,22 +209,23 @@ export default function ArgentinaMap({ className, style }: { className?: string;
         />
         <circle className="ar-hit" cx={nx(1332.309) + 3.532} cy={ny(2291.79) + 3.532} r={14} fill="transparent" />
         <text
-          x={nx(1109.211)}
+          x={nx(RIGHT)}
           y={ny(2175.96)}
+          textAnchor="end"
           className="ar-label ar-label--stack"
           dominantBaseline="text-before-edge"
         >
-          <tspan x={nx(1109.211)} dy="0">
+          <tspan x={nx(RIGHT)} dy="0">
             • El Tordillo
           </tspan>
-          <tspan x={nx(1109.211)} dy="22">
+          <tspan x={nx(RIGHT)} dy="22">
             • La Tapera
           </tspan>
-          <tspan x={nx(1109.211)} dy="22">
+          <tspan x={nx(RIGHT)} dy="22">
             • P. Quiroga
           </tspan>
         </text>
-        <text x={nx(1025.574)} y={ny(2247.569)} className="ar-sublabel" dominantBaseline="text-before-edge">
+        <text x={nx(RIGHT)} y={ny(2247.569)} textAnchor="end" className="ar-sublabel" dominantBaseline="text-before-edge">
           Golfo San Jorge • Chubut
         </text>
       </g>
@@ -255,19 +259,20 @@ export default function ArgentinaMap({ className, style }: { className?: string;
         />
         <circle className="ar-hit" cx={nx(1327.91) + 3.532} cy={ny(2323.469) + 3.532} r={14} fill="transparent" />
         <text
-          x={nx(1072)}
+          x={nx(RIGHT)}
           y={ny(2284.718)}
+          textAnchor="end"
           className="ar-label ar-label--stack"
           dominantBaseline="text-before-edge"
         >
-          <tspan x={nx(1072)} dy="0">
+          <tspan x={nx(RIGHT)} dy="0">
             • Piedra Clavada
           </tspan>
-          <tspan x={nx(1072)} dy="22">
+          <tspan x={nx(RIGHT)} dy="22">
             • Koluel Kaike
           </tspan>
         </text>
-        <text x={nx(1025.574)} y={ny(2331.911)} className="ar-sublabel" dominantBaseline="text-before-edge">
+        <text x={nx(RIGHT)} y={ny(2331.911)} textAnchor="end" className="ar-sublabel" dominantBaseline="text-before-edge">
           Golfo San Jorge • Santa Cruz
         </text>
       </g>

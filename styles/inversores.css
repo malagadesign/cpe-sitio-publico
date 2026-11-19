@@ -283,6 +283,16 @@
   max-width: 52ch;
   margin: 0 auto;
 }
+.inv-quote cite a {
+  color: #c3c7e6;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.inv-quote cite a:hover,
+.inv-quote cite a:focus-visible {
+  color: #fff;
+  background: transparent;
+}
 
 /* -------- Valor -------- */
 .inv-valor {
