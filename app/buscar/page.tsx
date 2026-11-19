@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import { createSupabaseServerAdminClient } from '@/lib/supabase'
 import { getEffectiveLang } from '@/lib/lang'
 
@@ -64,14 +63,18 @@ export default async function BuscarPage({ searchParams }: { searchParams: { q?:
   return (
     <section className="section" style={{ minHeight: '60vh' }}>
       <div className="container" style={{ maxWidth: 720 }}>
-        <div className="crumbs">
-          <Link href="/"><span className="lang-es" aria-hidden={lang !== 'es'}>Inicio</span><span className="lang-en" aria-hidden={lang !== 'en'}>Home</span></Link>
-          <span>/</span>
-          <span>Búsqueda</span>
-        </div>
         <h1 className="section-title" style={{ marginTop: 14, marginBottom: 24 }}>
-          <span className="lang-es" aria-hidden={lang !== 'es'}>Resultados para &ldquo;{q}&rdquo;</span>
-          <span className="lang-en" aria-hidden={lang !== 'en'}>Results for &ldquo;{q}&rdquo;</span>
+          {q ? (
+            <>
+              <span className="lang-es" aria-hidden={lang !== 'es'}>Resultados para &ldquo;{q}&rdquo;</span>
+              <span className="lang-en" aria-hidden={lang !== 'en'}>Results for &ldquo;{q}&rdquo;</span>
+            </>
+          ) : (
+            <>
+              <span className="lang-es" aria-hidden={lang !== 'es'}>¿Qué estás buscando?</span>
+              <span className="lang-en" aria-hidden={lang !== 'en'}>What are you looking for?</span>
+            </>
+          )}
         </h1>
 
         <form action="/buscar" style={{ marginBottom: 32, display: 'flex', gap: 8 }}>

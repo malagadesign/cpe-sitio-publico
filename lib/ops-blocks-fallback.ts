@@ -42,14 +42,14 @@ export const OPS_BLOCKS_FALLBACK: OperationsBlock[] = [
     eyebrow: '02 · Golfo San Jorge · Santa Cruz',
     titulo: 'Piedra Clavada · Koluel Kaike',
     lede_es:
-      'Concesión de explotación operada al 100% en la Cuenca San Jorge, provincia de Santa Cruz. Crown Point busca aumentar la producción mediante perforaciones, workovers y optimización de instalaciones.',
+      'Concesión de explotación operada al 100% en la Cuenca San Jorge, provincia de Santa Cruz. Crown Point Energía busca aumentar la producción mediante perforaciones, workovers y optimización de instalaciones.',
     lede_en:
       '100%-operated exploitation concession in the San Jorge Basin, Santa Cruz province. Crown Point aims to grow production through drilling, workovers and facilities optimisation.',
     card_title_es: 'Activo de crecimiento',
     card_title_en: 'Growth asset',
-    chips: ['100% WI', 'Operador', 'Crudo pesado'],
+    chips: ['100% Operador', 'Crudo pesado'],
     body_es: [
-      'Crown Point tiene una participación operada en la Concesión de Explotación Piedra Clavada Koluel Kaike, que representa un total de 71.660 acres netos en la Cuenca San Jorge. La estrategia de Crown Point es aumentar la producción a través de perforaciones y workovers de pozos, y optimización de instalaciones.',
+      'Crown Point Energía tiene una participación operada en la Concesión de Explotación Piedra Clavada Koluel Kaike, que representa un total de 71.660 acres netos en la Cuenca San Jorge. La estrategia de Crown Point Energía es aumentar la producción a través de perforaciones y workovers de pozos, y optimización de instalaciones.',
       'Producción 1Q 2026: 2.568 Bbl/d de petróleo. El bloque cuenta con 403 pozos productores activos y 143 pozos inyectores.',
     ],
     body_en: [
@@ -60,7 +60,7 @@ export const OPS_BLOCKS_FALLBACK: OperationsBlock[] = [
       { label_es: 'Producción petróleo', label_en: 'Oil production', val: '2,568 Bbl/d' },
       { label_es: 'Pozos activos', label_en: 'Active wells', val: '403' },
       { label_es: 'Pozos inyectores', label_en: 'Injector wells', val: '143' },
-      { label_es: 'Superficie', label_en: 'Acreage', val: '8,840 ha' },
+      { label_es: 'Superficie', label_en: 'Acreage', val: '71,660 acres · 290 km²' },
       { label_es: 'Calidad de crudo', label_en: 'Crude quality', val: '21° API' },
       { label_es: 'Vencimiento', label_en: 'Expiry', val: '2049' },
     ],
@@ -75,14 +75,14 @@ export const OPS_BLOCKS_FALLBACK: OperationsBlock[] = [
     eyebrow: '03 · Cuenca Cuyana',
     titulo: 'Chañares Herrados / PPCO',
     lede_es:
-      'Dos concesiones productivas contiguas en el centro de Mendoza — Chañares Herrados (crudo mediano, 31.94° API) y Puesto Pozo Cercado Oriental (crudo liviano, 33.7° API). Crown Point participa con el 50% del working interest en ambas; el operador es Tango Energy Argentina S.A.',
+      'Dos concesiones productivas contiguas en el centro de Mendoza — Chañares Herrados (crudo mediano, 31.94° API) y Puesto Pozo Cercado Oriental (crudo liviano, 33.7° API). Crown Point Energía participa con el 50% del working interest en ambas; el operador es Tango Energy Argentina S.A.',
     lede_en:
       'Two contiguous producing concessions in central Mendoza — Chañares Herrados (medium crude, 31.94° API) and Puesto Pozo Cercado Oriental (light crude, 33.7° API). Crown Point holds a 50% working interest in both; operator is Tango Energy Argentina S.A.',
     card_title_es: 'Producción consolidada',
     card_title_en: 'Consolidated production',
-    chips: ['2 concesiones', '50% WI', 'JV · Tango Energy Argentina', 'Mendoza / Cuyana'],
+    chips: ['2 concesiones', '50% WI', 'JV · Tango Energy Argentina'],
     body_es: [
-      'Crown Point participa del working interest en este bloque ubicado en la Cuenca Cuyana, provincia de Mendoza. El operador es Tango Energy Argentina S.A. El bloque produce crudo mediano de 31.94° API con infraestructura conectada al oleoducto Allanito–Luján de Cuyo.',
+      'Crown Point Energía participa del working interest en este bloque ubicado en la Cuenca Cuyana, provincia de Mendoza. El operador es Tango Energy Argentina S.A. El bloque produce crudo mediano de 31.94° API con infraestructura conectada al oleoducto Allanito–Luján de Cuyo.',
       'Producción 1Q 2026: 415 Bbl/d de petróleo. El programa de workover 2026 contempla la intervención de pozos productores con un objetivo de incremento de producción.',
     ],
     body_en: [
@@ -96,7 +96,7 @@ export const OPS_BLOCKS_FALLBACK: OperationsBlock[] = [
       { label_es: 'Participación', label_en: 'Working interest', val: 'WI 50%' },
       { label_es: 'Operador', label_en: 'Operator', val: 'Tango Energy Argentina S.A.' },
       { label_es: 'Calidad de crudo (consolidada)', label_en: 'Crude quality (consolidated)', val: '32.82° API' },
-      { label_es: 'Provincia', label_en: 'Province', val: 'Mendoza / Cuyana' },
+      { label_es: 'Provincia', label_en: 'Province', val: 'Mendoza' },
     ],
     map_stats: [],
     activo: true,
@@ -109,12 +109,12 @@ export const OPS_BLOCKS_FALLBACK: OperationsBlock[] = [
     eyebrow: '04 · Cuenca Neuquina',
     titulo: 'Cerro de Los Leones',
     lede_es:
-      'Bloque exploratorio de 101.208 hectáreas en el norte de la Cuenca Neuquina, provincia de Mendoza. El área se encuentra en la parte norte del play Vaca Muerta, con prospectos convencionales en formaciones Tordillo, Quintuco y Mulichinco.',
+      'Bloque exploratorio de 101.208 acres en el norte de la Cuenca Neuquina, provincia de Mendoza, con potencial convencional y no convencional.',
     lede_en:
-      '101,208-hectare exploration block in the northern Neuquén Basin, Mendoza province. The area sits within the northern extension of the Vaca Muerta play, with conventional prospects in the Tordillo, Quintuco and Mulichinco formations.',
+      '101,208-acre exploration block in the northern Neuquén Basin, Mendoza province, with both conventional and unconventional potential.',
     card_title_es: 'Estructura del bloque',
     card_title_en: 'Block structure',
-    chips: ['100% WI', 'Operador', 'Exploratorio', 'Mendoza / Neuquina'],
+    chips: ['100% Operador', 'Exploratorio'],
     body_es: [
       'El permiso CLL fue prorrogado hasta el 18 de mayo de 2027. La estrategia apunta a madurar prospectos convencionales en el flanco norte de Vaca Muerta.',
     ],
@@ -122,10 +122,10 @@ export const OPS_BLOCKS_FALLBACK: OperationsBlock[] = [
       'The CLL Permit was extended until May 18, 2027. Strategy focuses on maturing conventional prospects on the northern flank of Vaca Muerta.',
     ],
     stats: [
-      { label_es: 'Superficie', label_en: 'Acreage', val: '101,208 ha' },
-      { label_es: 'Prórroga permiso', label_en: 'Permit extension', val: 'May 2027' },
-      { label_es: 'Participación', label_en: 'Working interest', val: '100% WI' },
-      { label_es: 'Provincia', label_en: 'Province', val: 'Mendoza / Neuquina' },
+      { label_es: 'Superficie', label_en: 'Acreage', val: '101,208 acres' },
+      { label_es: 'Profundidad objetivo', label_en: 'Target depth', val: '2,800–3,600 m' },
+      { label_es: 'Permiso de prórroga', label_en: 'Permit extension', val: 'mayo 2027', val_en: 'May 2027' },
+      { label_es: 'Provincia', label_en: 'Province', val: 'Mendoza' },
     ],
     map_stats: [],
     activo: true,

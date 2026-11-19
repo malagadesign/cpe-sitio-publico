@@ -151,7 +151,7 @@ export default async function DirectoriosPage() {
             src="/inversores/directorios/photo-field.webp"
             alt={
               lang === 'es'
-                ? 'Ingenieros en sitio de operaciones de Crown Point'
+                ? 'Ingenieros en sitio de operaciones de Crown Point Energía'
                 : 'Engineers at a Crown Point operations site'
             }
             width={1448}
@@ -197,7 +197,7 @@ export default async function DirectoriosPage() {
               src="/inversores/directorios/photo-rig.webp"
               alt={
                 lang === 'es'
-                  ? 'Equipo de perforación en operaciones de Crown Point'
+                  ? 'Equipo de perforación en operaciones de Crown Point Energía'
                   : 'Drilling rig at Crown Point operations'
               }
               width={1600}

@@ -425,7 +425,7 @@ export default function ApplicationForm({ lang }: { lang: 'es' | 'en' }) {
             <textarea
               value={data.mensaje}
               onChange={e => set('mensaje', e.target.value)}
-              placeholder="Contanos brevemente por qué te interesa sumar a Crown Point…"
+              placeholder="Contanos brevemente por qué te interesa sumar a Crown Point Energía…"
               style={{ minHeight: 100 }}
             />
           </Field>

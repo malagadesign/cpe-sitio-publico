@@ -48,15 +48,51 @@ export default function OpsWherePanel({
   const [activeId, setActiveId] = useState<string | null>(defaultId)
 
   useEffect(() => {
-    function applyHash() {
+    let timer: ReturnType<typeof setTimeout> | undefined
+
+    /** Selecciona el yacimiento del hash y deja visible la sección “Dónde estamos”. */
+    function applyHash(): boolean {
       const hash = window.location.hash.replace(/^#/, '')
-      if (!hash) return
+      if (!hash) return false
       const mapped = MAP_TO_CARD[hash] ?? hash
-      if (cardBlocks.some(b => b.slug === mapped)) setActiveId(mapped)
+      if (!cardBlocks.some(b => b.slug === mapped)) return false
+      setActiveId(mapped)
+      if (timer) clearTimeout(timer)
+      // Espera al commit y a que Next termine su propio scroll al hash.
+      timer = setTimeout(() => {
+        document.getElementById('mapa')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }, 80)
+      return true
     }
+
+    /**
+     * Links a /operaciones#<yacimiento> estando ya en /operaciones (header, footer, etc.):
+     * Next no dispara hashchange, así que los resolvemos acá.
+     */
+    function onDocumentClick(e: MouseEvent) {
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return
+      const a = (e.target as Element | null)?.closest?.('a[href]') as HTMLAnchorElement | null
+      if (!a || a.target === '_blank') return
+      const url = new URL(a.href, window.location.href)
+      if (url.origin !== window.location.origin) return
+      if (url.pathname.replace(/\/$/, '') !== window.location.pathname.replace(/\/$/, '')) return
+      const hash = url.hash.replace(/^#/, '')
+      const mapped = MAP_TO_CARD[hash] ?? hash
+      if (!hash || !cardBlocks.some(b => b.slug === mapped)) return
+      e.preventDefault()
+      e.stopPropagation()
+      window.history.pushState(null, '', `#${hash}`)
+      applyHash()
+    }
+
     applyHash()
     window.addEventListener('hashchange', applyHash)
-    return () => window.removeEventListener('hashchange', applyHash)
+    document.addEventListener('click', onDocumentClick, true)
+    return () => {
+      if (timer) clearTimeout(timer)
+      window.removeEventListener('hashchange', applyHash)
+      document.removeEventListener('click', onDocumentClick, true)
+    }
   }, [cardBlocks])
 
   const active = useMemo(
@@ -80,8 +116,13 @@ export default function OpsWherePanel({
   }
 
   const isExploracion = active ? EXPLORACION.has(active.slug) : false
-  const titleLines = (active?.titulo ?? '')
-    .split(/[·•–—|/]+/)
+  const rawTitle = active?.titulo ?? ''
+  // Figma: "Chañares / Herrados / PPCO" → "Chañares" y "Herrados / PPCO" (la "/" se conserva).
+  // Resto de títulos: los separadores · • – — | se descartan y cada tramo va en su línea.
+  const titleLines = (rawTitle.includes('/')
+    ? [rawTitle.split(/\s+/)[0], rawTitle.split(/\s+/).slice(1).join(' ')]
+    : rawTitle.split(/\s*[·•–—|]+\s*/)
+  )
     .map(s => s.trim())
     .filter(Boolean)
   const chips = Array.isArray(active?.chips)
@@ -118,7 +159,7 @@ export default function OpsWherePanel({
           <span className="lang-en" aria-hidden={lang !== 'en'}>1 result</span>
         </p>
         {active && (
-          <article className="ops-card" id={active.slug} aria-live="polite">
+          <article className="ops-card" id={`yacimiento-${active.slug}`} aria-live="polite">
             <div className="ops-card-tags">
               <p className="ops-card-tag">
                 <span className="lang-es" aria-hidden={lang !== 'es'}>
@@ -185,7 +226,7 @@ export default function OpsWherePanel({
                         <span className="lang-en" aria-hidden={lang !== 'en'}>{stat.label_en}</span>
                       </span>
                       {': '}
-                      <span>{stat.val}</span>
+                      <span>{lang === 'en' && stat.val_en ? stat.val_en : stat.val}</span>
                     </li>
                   ))}
                 </ul>

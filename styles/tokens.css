@@ -135,7 +135,8 @@ html:has(.hero) .site-header .nav-item.active { color: #fff; font-weight: 700; }
 html:has(.page-hero.has-photo) .site-header .nav-submenu a,
 html:has(.hero) .site-header .nav-submenu a,
 html:has(.den-page) .site-header .nav-submenu a,
-html:has(.legal-page) .site-header .nav-submenu a { color: rgba(255,255,255,0.92); }
+html:has(.legal-page) .site-header .nav-submenu a,
+html:has(.asm-page) .site-header .nav-submenu a { color: rgba(255,255,255,0.92); }
 html:has(.page-hero.has-photo) .site-header .brand-logo,
 html:has(.hero) .site-header .brand-logo {
   filter: none;
@@ -587,7 +588,8 @@ html:has(.con-page) .site-header .nav-submenu--figma,
 html:has(.est-page) .site-header .nav-submenu--figma,
 html:has(.esg-page) .site-header .nav-submenu--figma,
 html:has(.den-page) .site-header .nav-submenu--figma,
-html:has(.legal-page) .site-header .nav-submenu--figma {
+html:has(.legal-page) .site-header .nav-submenu--figma,
+html:has(.asm-page) .site-header .nav-submenu--figma {
   --nav-rule: #fff;
   color: rgba(255, 255, 255, 0.92);
 }
@@ -890,6 +892,15 @@ html:has(.rep-page) .footer-social-btn:hover {
   background: rgba(13, 18, 55, 0.14);
   color: #0d1237;
 }
+.footer-col h5 .footer-col-heading-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.footer-col h5 .footer-col-heading-link:hover {
+  text-decoration: underline;
+}
+
 .footer-col h5 {
   font-family: var(--font-body);
   font-size: 14px;

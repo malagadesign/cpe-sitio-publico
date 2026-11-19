@@ -6,7 +6,7 @@ export const revalidate = 60
 export const metadata = {
   title: 'Estrategia | Inversores | Crown Point Energy',
   description:
-    'Estrategia de crecimiento sostenible de Crown Point: optimización de producción, disciplina financiera, crecimiento estratégico y transparencia.',
+    'Estrategia de crecimiento sostenible de Crown Point Energía: optimización de producción, disciplina financiera, crecimiento estratégico y transparencia.',
   alternates: { canonical: 'https://crownpointenergy.com/inversores/estrategia' },
 }
 

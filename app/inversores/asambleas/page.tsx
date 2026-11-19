@@ -8,7 +8,7 @@ export const revalidate = 60
 export const metadata = {
   title: 'Asambleas | Inversores | Crown Point Energy',
   description:
-    'Materiales de asamblea de Crown Point Energy Inc.: circulares, notices y formularios de proxy archivados en SEDAR+.',
+    'Materiales de asamblea de Crown Point Energy Inc.: circulares, noticias y formularios de proxy archivados en SEDAR+.',
   alternates: { canonical: 'https://crownpointenergy.com/inversores/asambleas' },
 }
 
@@ -80,8 +80,8 @@ export default async function AsambleasPage() {
           </h1>
           <p className="asm-lede">
             <span className="lang-es" aria-hidden={lang !== 'es'}>
-              Circulares de información, notices y formularios de proxy de las asambleas anuales de Crown Point
-              Energy Inc. Archivados en{' '}
+              Circulares de información, noticias y formularios de proxy de las asambleas anuales de Crown Point Energy Inc.
+              Archivados en{' '}
               <a href="https://www.sedarplus.ca/" target="_blank" rel="noopener noreferrer">
                 SEDAR+
               </a>

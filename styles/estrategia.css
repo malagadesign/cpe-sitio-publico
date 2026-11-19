@@ -47,6 +47,13 @@ html:has(.est-page) .site-header .btn-ingresar {
   text-align: center;
 }
 
+/* Deja lugar debajo del header sticky para que se vea el submenú de Invertir completo (hasta ~183px) */
+@media (min-width: 961px) {
+  .est-hero {
+    padding-top: 124px;
+  }
+}
+
 .est-eyebrow {
   font-family: var(--font-body);
   font-size: 18px;

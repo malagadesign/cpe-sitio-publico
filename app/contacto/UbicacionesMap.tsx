@@ -72,7 +72,7 @@ export function UbicacionesMap({ lang }: { lang: 'es' | 'en' }) {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/contacto/map.webp"
-          alt={lang === 'es' ? 'Mapa de ubicaciones Crown Point' : 'Crown Point locations map'}
+          alt={lang === 'es' ? 'Mapa de ubicaciones Crown Point Energía' : 'Crown Point locations map'}
         />
       </div>
     </div>

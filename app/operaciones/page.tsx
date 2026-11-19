@@ -73,7 +73,7 @@ export default async function OperacionesPage() {
         <div className="ops-hero-media">
           <Image
             src={heroImg}
-            alt={lang === 'es' ? 'Yacimiento y operaciones de Crown Point en Argentina' : 'Crown Point oilfield operations in Argentina'}
+            alt={lang === 'es' ? 'Yacimiento y operaciones de Crown Point Energía en Argentina' : 'Crown Point oilfield operations in Argentina'}
             fill
             priority
             className="ops-hero-img"

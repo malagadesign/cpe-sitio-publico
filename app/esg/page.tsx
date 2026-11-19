@@ -78,7 +78,7 @@ const FALLBACK_DOCS = [
     es: 'Formulario de denuncias e irregularidades',
     en: 'Reporting form',
     href: '/denuncias',
-    tag: 'ENLACE' as const,
+    tag: 'FORMULARIO' as const,
   },
 ]
 

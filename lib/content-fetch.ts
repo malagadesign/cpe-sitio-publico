@@ -37,7 +37,7 @@ export type ObligacionNegociable = {
   tasa: string; isin: string; bolsa: string; activo: boolean; orden: number
 }
 
-export type StatRow = { label_es: string; label_en: string; val: string }
+export type StatRow = { label_es: string; label_en: string; val: string; val_en?: string }
 
 export type OperationsBlock = {
   id: string; slug: string; orden: number; commodity: 'oil' | 'gas' | 'mixed'

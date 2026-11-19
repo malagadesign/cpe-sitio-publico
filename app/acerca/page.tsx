@@ -1,7 +1,5 @@
-import Link from 'next/link'
 import Image from 'next/image'
 import { getCmsState } from '@/lib/cms'
-import { fetchTeamMembers, fetchStrategyCards } from '@/lib/content-fetch'
 import SomosTimeline from '@/components/SomosTimeline'
 import { getEffectiveLang } from '@/lib/lang'
 
@@ -27,27 +25,10 @@ const TIMELINE = [
 ]
 
 export default async function AcercaPage() {
-  const [s, management, board, strategyCards] = await Promise.all([
-    getCmsState(),
-    fetchTeamMembers('management'),
-    fetchTeamMembers('board'),
-    fetchStrategyCards(),
-  ])
+  const s = await getCmsState()
 
   const lang = await getEffectiveLang(s.lang as 'es' | 'en')
   const heroImg = s.fields['hero.acerca.img'] || '/somos/hero.webp'
-
-  const isCPI = (m: { entidad?: string }) => m.entidad === 'CPI'
-  const mgmtCPI = management.filter(isCPI)
-  const mgmtCPESA = management.filter(m => !isCPI(m))
-  const boardCPI = board.filter(isCPI)
-  const boardCPESA = board.filter(m => !isCPI(m))
-  const BOARD_CATEGORIES = ['Director Titular', 'Director Suplente', 'Síndico Titular', 'Síndico Suplente']
-  const dirTitulares = boardCPESA.filter(d => d.cargo_board === 'Director Titular')
-  const dirSuplentes = boardCPESA.filter(d => d.cargo_board === 'Director Suplente')
-  const sindTitulares = boardCPESA.filter(d => d.cargo_board === 'Síndico Titular')
-  const sindSuplentes = boardCPESA.filter(d => d.cargo_board === 'Síndico Suplente')
-  const boardOther = boardCPESA.filter(d => !BOARD_CATEGORIES.includes(d.cargo_board))
 
   return (
     <div className="somos-page">
@@ -55,7 +36,7 @@ export default async function AcercaPage() {
         <div className="somos-hero-media">
           <Image
             src={heroImg}
-            alt={lang === 'es' ? 'Operaciones de Crown Point en campo argentino' : 'Crown Point field operations in Argentina'}
+            alt={lang === 'es' ? 'Operaciones de Crown Point Energía en campo argentino' : 'Crown Point field operations in Argentina'}
             fill
             priority
             className="somos-hero-img"
@@ -185,7 +166,7 @@ export default async function AcercaPage() {
             <div className="somos-circle">
               <Image
                 src="/somos/workers-circle.webp"
-                alt={lang === 'es' ? 'Equipo de Crown Point en yacimiento' : 'Crown Point team at the field'}
+                alt={lang === 'es' ? 'Equipo de Crown Point Energía en yacimiento' : 'Crown Point team at the field'}
                 fill
                 sizes="(max-width: 960px) 90vw, 520px"
                 className="somos-circle-img somos-circle-img--workers"
@@ -206,170 +187,6 @@ export default async function AcercaPage() {
             <span className="lang-en" aria-hidden={lang !== 'en'}>Company milestones</span>
           </h2>
           <SomosTimeline items={TIMELINE} lang={lang} />
-        </div>
-      </section>
-
-      {/* CMS-backed sections — keep until Equipo Figma frame is implemented */}
-      <section className="somos-legacy" id="equipo">
-        <div className="container">
-          <style>{`
-            .strat-grid { list-style: none; padding: 0; margin: var(--s-6) 0 0; }
-            .strat-card { padding: var(--s-6) 0; border-bottom: 1px solid rgba(255,255,255,0.12); display: grid; grid-template-columns: 64px 1fr; gap: var(--s-6); align-items: start; }
-            .strat-card:last-child { border-bottom: 0; }
-            .strat-card .num { font-family: var(--font-mono); font-size: 22px; color: var(--cp-green); font-weight: 600; }
-            .strat-card h4 { font-family: var(--font-display); font-size: 22px; font-weight: 600; margin: 0 0 8px; color: #fff; }
-            .strat-card p { color: var(--cp-muted-soft); font-size: 14px; line-height: 1.55; margin: 0; }
-            .people-grid { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--s-6); }
-            .person { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.12); border-radius: var(--r-lg); padding: var(--s-6); }
-            .avatar { width: 56px; height: 56px; border-radius: 50%; color: #fff; display: grid; place-items: center; font-family: var(--font-display); font-weight: 600; font-size: 20px; margin-bottom: var(--s-3); }
-            .person strong { display: block; font-family: var(--font-display); font-size: 22px; font-weight: 600; color: #fff; }
-            .person .role { display: block; font-size: 13px; color: var(--cp-green); letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600; margin-top: 4px; }
-            .person p { font-size: 14px; color: var(--cp-muted-soft); line-height: 1.55; margin: 12px 0 0; }
-            .director-list { list-style: none; padding: 0; margin: 0; }
-            .director-list li { padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,0.12); display: flex; gap: 12px; align-items: baseline; flex-wrap: wrap; font-size: 16px; color: var(--cp-muted-soft); }
-            .director-list li:last-child { border-bottom: 0; }
-            .director-list strong { font-family: var(--font-display); font-size: 20px; font-weight: 600; color: #fff; }
-            .director-list span { font-size: 12px; color: rgba(255,255,255,0.45); letter-spacing: 0.06em; text-transform: uppercase; }
-            @media (max-width: 720px) { .people-grid { grid-template-columns: 1fr; } }
-          `}</style>
-
-          {strategyCards.length > 0 && (
-            <div className="section-block" id="estrategia">
-              <span className="eyebrow"><span className="lang-es" aria-hidden={lang !== 'es'}>Estrategia</span><span className="lang-en" aria-hidden={lang !== 'en'}>Strategy</span></span>
-              <h2 style={{ marginTop: 8, color: '#fff' }}>
-                <span className="lang-es" aria-hidden={lang !== 'es'}>Crecimiento disciplinado con activos reales.</span>
-                <span className="lang-en" aria-hidden={lang !== 'en'}>Disciplined growth with real assets.</span>
-              </h2>
-              <div className="strat-grid">
-                {strategyCards.map(c => (
-                  <div className="strat-card" key={c.id}>
-                    <span className="num">{c.num}</span>
-                    <div>
-                      <h4>
-                        <span className="lang-es" aria-hidden={lang !== 'es'}>{c.title_es}</span>
-                        <span className="lang-en" aria-hidden={lang !== 'en'}>{c.title_en}</span>
-                      </h4>
-                      <p>
-                        <span className="lang-es" aria-hidden={lang !== 'es'}>{c.body_es}</span>
-                        <span className="lang-en" aria-hidden={lang !== 'en'}>{c.body_en}</span>
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          <div className="section-block" id="management">
-            <span className="eyebrow">Management</span>
-            <h2 style={{ marginTop: 8, color: '#fff' }}>
-              <span className="lang-es" aria-hidden={lang !== 'es'}>Equipo ejecutivo</span>
-              <span className="lang-en" aria-hidden={lang !== 'en'}>Executive team</span>
-            </h2>
-            {[
-              { label: 'Crown Point Energy Inc.', list: mgmtCPI, esOnly: false },
-              { label: 'Crown Point Energía S.A. (CPESA)', list: mgmtCPESA, esOnly: true },
-            ].filter(g => g.list.length > 0).map(g => (
-              <div key={g.label} className={g.esOnly ? 'lang-es' : undefined} style={{ marginTop: 'var(--s-6)' }}>
-                <h3 style={{ fontSize: 13, letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--cp-green)', fontWeight: 700, marginBottom: 'var(--s-4)' }}>{g.label}</h3>
-                <ul className="people-grid">
-                  {g.list.map(p => (
-                    <li className="person" key={p.id}>
-                      <div className="avatar" style={{ background: p.bg }}>{p.initials}</div>
-                      <strong>{p.name}</strong>
-                      <span className="role">
-                        <span className="lang-es" aria-hidden={lang !== 'es'}>{p.role_es}</span>
-                        <span className="lang-en" aria-hidden={lang !== 'en'}>{p.role_en}</span>
-                      </span>
-                      {(p.bio_es || p.bio_en) && (
-                        <p>
-                          <span className="lang-es" aria-hidden={lang !== 'es'}>{p.bio_es}</span>
-                          <span className="lang-en" aria-hidden={lang !== 'en'}>{p.bio_en}</span>
-                        </p>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-
-          {boardCPI.length > 0 && (
-            <div className="section-block" id="directorio-cpi">
-              <span className="eyebrow">Crown Point Energy Inc.</span>
-              <h2 style={{ marginTop: 8, color: '#fff' }}>
-                <span className="lang-es" aria-hidden={lang !== 'es'}>Directorio — CPE Inc.</span>
-                <span className="lang-en" aria-hidden={lang !== 'en'}>Board — CPE Inc.</span>
-              </h2>
-              <ul className="people-grid">
-                {boardCPI.map(p => (
-                  <li className="person" key={p.id}>
-                    <div className="avatar" style={{ background: p.bg }}>{p.initials}</div>
-                    <strong>{p.name}</strong>
-                    <span className="role">
-                      <span className="lang-es" aria-hidden={lang !== 'es'}>{p.role_es}</span>
-                      <span className="lang-en" aria-hidden={lang !== 'en'}>{p.role_en}</span>
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-
-          {boardCPESA.length > 0 && (
-            <div className="section-block lang-es" id="directorio">
-              <span className="eyebrow">Crown Point Energía S.A.</span>
-              <h2 style={{ marginTop: 8, color: '#fff' }}>Directorio — CPESA</h2>
-              <ul className="director-list">
-                {dirTitulares.map(d => (
-                  <li key={d.id}>
-                    <strong>{d.name}</strong>
-                    {d.independiente === true && <span>Independiente</span>}
-                  </li>
-                ))}
-                {dirSuplentes.map(d => (
-                  <li key={d.id}>
-                    <strong>{d.name}</strong>
-                    {d.independiente === true && <span>Independiente</span>}
-                  </li>
-                ))}
-                {sindTitulares.map(d => (
-                  <li key={d.id}><strong>{d.name}</strong></li>
-                ))}
-                {sindSuplentes.map(d => (
-                  <li key={d.id}><strong>{d.name}</strong></li>
-                ))}
-                {boardOther.map(d => (
-                  <li key={d.id}>
-                    <strong>{d.name}</strong>
-                    {d.cargo_board && <> · {d.cargo_board}</>}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-
-          <div className="section-block" id="esg" style={{ borderBottom: 0 }}>
-            <span className="eyebrow">ESG</span>
-            <h2 style={{ marginTop: 8, color: '#fff' }}>
-              <span className="lang-es" aria-hidden={lang !== 'es'}>Responsabilidad corporativa</span>
-              <span className="lang-en" aria-hidden={lang !== 'en'}>Corporate responsibility</span>
-            </h2>
-            <p className="lede" style={{ color: 'var(--cp-muted-soft)' }}>
-              <span className="lang-es" aria-hidden={lang !== 'es'}>
-                Operar de forma responsable es la condición para operar a largo plazo.
-              </span>
-              <span className="lang-en" aria-hidden={lang !== 'en'}>
-                Operating responsibly is the condition for operating long-term.
-              </span>
-            </p>
-            <div style={{ marginTop: 'var(--s-6)' }}>
-              <Link href="/esg" className="btn btn-secondary" style={{ color: '#fff', borderColor: 'rgba(255,255,255,0.4)' }}>
-                <span className="lang-es" aria-hidden={lang !== 'es'}>Ver reporte ESG completo</span>
-                <span className="lang-en" aria-hidden={lang !== 'en'}>Full ESG report</span>
-              </Link>
-            </div>
-          </div>
         </div>
       </section>
     </div>

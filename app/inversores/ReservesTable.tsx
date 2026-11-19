@@ -53,7 +53,7 @@ export default function ReservesTable({ lang }: { lang: 'es' | 'en' }) {
         <p className="reserves-footnote">
           <span className="lang-es" aria-hidden={lang !== 'es'}>
             Certificadas al 31/12/2025 bajo NI 51-101. Volúmenes en MMboe (millones de barriles de petróleo equivalente).
-            Bruto = participación de trabajo bruta; Neto = porción correspondiente a Crown Point después de regalías.
+            Bruto = participación de trabajo bruta; Neto = porción correspondiente a Crown Point Energía después de regalías.
           </span>
           <span className="lang-en" aria-hidden={lang !== 'en'}>
             Certified as of 31/12/2025 under NI 51-101. Volumes in MMboe (millions of barrels of oil equivalent).

@@ -100,7 +100,7 @@ export default async function HomePage() {
         <BasinsCard lang={lang} imageSrc="/home/basins-photo.jpg" />
       )}
 
-      <section className="nums-strip nums-strip--figma" aria-label="Crown Point en números">
+      <section className="nums-strip nums-strip--figma" aria-label="Crown Point Energía en números">
         <div className="container">
           <div className="nums-grid">
             {stats.map(item => (
@@ -125,7 +125,7 @@ export default async function HomePage() {
                   <span className="scale-map-title-line">
                     <span className="scale-map-title-cap">W</span>ork
                   </span>
-                  <span className="scale-map-title-line">in Interest</span>
+                  <span className="scale-map-title-line">in interest</span>
                 </h2>
               </div>
               <div className="scale-map-visual">

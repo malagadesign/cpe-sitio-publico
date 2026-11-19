@@ -65,7 +65,7 @@ export default async function InversoresPage() {
         <div className="inv-hero-media">
           <Image
             src={heroImg}
-            alt={lang === 'es' ? 'Operaciones upstream de Crown Point Energy' : 'Crown Point Energy upstream operations'}
+            alt={lang === 'es' ? 'Operaciones upstream de Crown Point Energía' : 'Crown Point Energy upstream operations'}
             fill
             priority
             className="inv-hero-img"
@@ -101,7 +101,7 @@ export default async function InversoresPage() {
             <div className="inv-photo">
               <Image
                 src="/inversores/motivos.webp"
-                alt={lang === 'es' ? 'Infraestructura de producción de Crown Point' : 'Crown Point production infrastructure'}
+                alt={lang === 'es' ? 'Infraestructura de producción de Crown Point Energía' : 'Crown Point production infrastructure'}
                 fill
                 sizes="(max-width: 960px) 90vw, 684px"
                 className="inv-photo-img"
@@ -113,7 +113,7 @@ export default async function InversoresPage() {
                 <span className="lang-en" aria-hidden={lang !== 'en'}>Investment thesis</span>
               </p>
               <h2 className="inv-title">
-                <span className="lang-es" aria-hidden={lang !== 'es'}>Tres motivos para mirar Crown Point</span>
+                <span className="lang-es" aria-hidden={lang !== 'es'}>Tres motivos para mirar Crown Point Energía</span>
                 <span className="lang-en" aria-hidden={lang !== 'en'}>Three reasons to look at Crown Point</span>
               </h2>
 
@@ -226,7 +226,7 @@ export default async function InversoresPage() {
             <p className="inv-reserves-note">
               <span className="lang-es" aria-hidden={lang !== 'es'}>
                 Certificadas al 31/12/2025 bajo NI 51-101. Volúmenes en MMboe (millones de barriles de petróleo equivalente).
-                Bruto = participación de trabajo bruta; Neto = porción correspondiente a Crown Point después de regalías.
+                Bruto = participación de trabajo bruta; Neto = porción correspondiente a Crown Point Energía después de regalías.
               </span>
               <span className="lang-en" aria-hidden={lang !== 'en'}>
                 Certified as of 31/12/2025 under NI 51-101. Volumes in MMboe. Gross = working interest before royalties; Net = Crown Point share after royalties.
@@ -248,10 +248,12 @@ export default async function InversoresPage() {
           </blockquote>
           <cite>
             <span className="lang-es" aria-hidden={lang !== 'es'}>
-              Cifras gerenciales no auditadas en base a los estados contables de CPE Inc. Para detalle ver Estados financieros.
+              Cifras gerenciales no auditadas en base a los estados contables de CPE Inc. Para detalle ver{' '}
+              <Link href="/inversores/financieros">Estados financieros</Link>.
             </span>
             <span className="lang-en" aria-hidden={lang !== 'en'}>
-              Unaudited management figures based on CPE Inc. financial statements. See Financial statements for detail.
+              Unaudited management figures based on CPE Inc. financial statements. See{' '}
+              <Link href="/inversores/financieros">Financial statements</Link> for detail.
             </span>
           </cite>
         </div>
@@ -272,7 +274,7 @@ export default async function InversoresPage() {
               <div className="inv-valor-body">
                 <div className="lang-es" aria-hidden={lang !== 'es'}>
                   <p>
-                    Reservas certificadas bajo NI 51-101 (NI 51-101 es una normativa de Canadá), contratos de suministro energético en USD y moneda local indexada, y un equipo con más de 25 años de experiencia en el upstream.
+                    Reservas certificadas bajo NI 51-101 (una normativa de Canadá), contratos de suministro energético en USD y moneda local indexada, y un equipo con más de 25 años de experiencia en el upstream.
                   </p>
                   <p className="inv-valor-heading">Producción base diversificada</p>
                   <p>Mix balanceado de gas natural, crudo y NGL en cinco bloques y tres cuencas.</p>
@@ -303,7 +305,7 @@ export default async function InversoresPage() {
             <div className="inv-photo">
               <Image
                 src="/inversores/valor.webp"
-                alt={lang === 'es' ? 'Activos y operaciones de campo de Crown Point' : 'Crown Point field assets and operations'}
+                alt={lang === 'es' ? 'Activos y operaciones de campo de Crown Point Energía' : 'Crown Point field assets and operations'}
                 fill
                 sizes="(max-width: 960px) 90vw, 684px"
                 className="inv-photo-img inv-photo-img--center"

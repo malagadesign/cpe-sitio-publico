@@ -37,7 +37,7 @@ export const SITE_SECTIONS: SiteSection[] = [
     path: '/acerca',
     label: 'Acerca de',
     area: 'public',
-    description: 'Historia y equipo directivo de Crown Point.',
+    description: 'Historia y equipo directivo de Crown Point Energía.',
   },
   {
     path: '/inversores',
@@ -86,7 +86,7 @@ export const SITE_SECTIONS: SiteSection[] = [
     label: 'Avisos legales',
     area: 'public',
     description: 'Avisos completos: Declaraciones Prospectivas, BOE, Medidas No-NIIF, Medidas de Petróleo y Gas, y tabla de abreviaciones. Bilingüe ES/EN.',
-    notes: 'Texto oficial de las presentaciones a inversores de Crown Point.',
+    notes: 'Texto oficial de las presentaciones a inversores de Crown Point Energía.',
   },
   {
     path: '/maintenance',

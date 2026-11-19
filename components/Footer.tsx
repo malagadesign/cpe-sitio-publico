@@ -50,13 +50,13 @@ export default function Footer({ lang = 'es' }: { lang?: 'es' | 'en' }) {
             <h5><span className="lang-es" aria-hidden={lang !== 'es'}>Compañía</span><span className="lang-en" aria-hidden={lang !== 'en'}>Company</span></h5>
             <ul>
               <li><Link href="/operaciones"><span className="lang-es" aria-hidden={lang !== 'es'}>Operaciones</span><span className="lang-en" aria-hidden={lang !== 'en'}>Operations</span></Link></li>
-              <li><Link href="/portal"><span className="lang-es" aria-hidden={lang !== 'es'}>Portal de inversores</span><span className="lang-en" aria-hidden={lang !== 'en'}>Investor portal</span></Link></li>
+              <li><a href="https://crown-point-energia.vercel.app/portal/login" target="_blank" rel="noopener noreferrer"><span className="lang-es" aria-hidden={lang !== 'es'}>Portal de inversores</span><span className="lang-en" aria-hidden={lang !== 'en'}>Investor portal</span></a></li>
               <li><Link href="/contacto"><span className="lang-es" aria-hidden={lang !== 'es'}>Contacto</span><span className="lang-en" aria-hidden={lang !== 'en'}>Contact</span></Link></li>
             </ul>
           </div>
 
           <div className="footer-col">
-            <h5><span className="lang-es" aria-hidden={lang !== 'es'}>Operaciones</span><span className="lang-en" aria-hidden={lang !== 'en'}>Operations</span></h5>
+            <h5><span className="lang-es" aria-hidden={lang !== 'es'}>Los yacimientos</span><span className="lang-en" aria-hidden={lang !== 'en'}>The fields</span></h5>
             <ul>
               <li><Link href="/operaciones#cerro">Cerro de Los Leones</Link></li>
               <li><Link href="/operaciones#tordillo">El Tordillo · La Tapera</Link></li>
@@ -66,7 +66,7 @@ export default function Footer({ lang = 'es' }: { lang?: 'es' | 'en' }) {
           </div>
 
           <div className="footer-col">
-            <h5><span className="lang-es" aria-hidden={lang !== 'es'}>Inversores</span><span className="lang-en" aria-hidden={lang !== 'en'}>Investors</span></h5>
+            <h5><Link href="/inversores" className="footer-col-heading-link"><span className="lang-es" aria-hidden={lang !== 'es'}>Invertir</span><span className="lang-en" aria-hidden={lang !== 'en'}>Invest</span></Link></h5>
             <ul>
               <li><Link href="/inversores/reportes"><span className="lang-es" aria-hidden={lang !== 'es'}>Reportes</span><span className="lang-en" aria-hidden={lang !== 'en'}>Reports</span></Link></li>
               <li><Link href="/inversores/financieros"><span className="lang-es" aria-hidden={lang !== 'es'}>Estados financieros</span><span className="lang-en" aria-hidden={lang !== 'en'}>Financial statements</span></Link></li>

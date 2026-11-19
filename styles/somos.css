@@ -292,51 +292,6 @@
   max-width: var(--item-w);
 }
 
-/* -------- Legacy CMS blocks under Figma redesign -------- */
-.somos-legacy {
-  background: var(--cp-navy-deep);
-  color: #fff;
-  padding: clamp(48px, 6vw, 80px) 0;
-}
-.somos-legacy .section-block {
-  padding: var(--s-10) 0;
-  border-top: 1px solid rgba(255,255,255,0.12);
-}
-.somos-legacy .section-block:first-child {
-  border-top: 0;
-  padding-top: 0;
-}
-.somos-legacy .eyebrow {
-  color: var(--cp-green) !important;
-}
-.somos-legacy h2,
-.somos-legacy h3,
-.somos-legacy strong {
-  color: #fff;
-}
-.somos-legacy .lede,
-.somos-legacy p,
-.somos-legacy .person p,
-.somos-legacy .director-list li {
-  color: var(--cp-muted-soft);
-}
-.somos-legacy .person {
-  background: rgba(255,255,255,0.04);
-  border-color: rgba(255,255,255,0.12);
-}
-.somos-legacy .strat-card,
-.somos-legacy .director-list li,
-.somos-legacy .advantages-list li {
-  border-color: rgba(255,255,255,0.12);
-}
-.somos-legacy .left-rail a {
-  color: rgba(255,255,255,0.7);
-}
-.somos-legacy .left-rail a.active,
-.somos-legacy .left-rail a:hover {
-  color: var(--cp-green);
-}
-
 @media (max-width: 960px) {
   .somos-split,
   .somos-split--reverse {
