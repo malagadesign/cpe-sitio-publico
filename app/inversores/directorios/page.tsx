@@ -24,23 +24,51 @@ const EXEC_FALLBACK: PersonRow[] = [
 const CPESA_FALLBACK: PersonRow[] = [
   { id: 'cpesa-1', name: 'Andrés Peralta', role: 'Director Titular' },
   { id: 'cpesa-2', name: 'Eduardo Rubén Oliver', role: 'Director Titular' },
-  { id: 'cpesa-3', name: 'Isela Angélica Constantini', role: 'Director Titular' },
+  { id: 'cpesa-3', name: 'Isela Angélica Constantini', role: 'Directora Titular' },
   { id: 'cpesa-4', name: 'Matías Agustín Peralta', role: 'Director Titular' },
-  { id: 'cpesa-5', name: 'Juan Manuel Llado', role: 'Director Titular' },
+  { id: 'cpesa-5', name: 'Juan Manuel Lladó', role: 'Director Titular' },
   { id: 'cpesa-6', name: 'Julián Andrés Racauchi', role: 'Director Titular' },
-  { id: 'cpesa-7', name: 'Rodolfo Eduardo Moresi', role: 'Comisión Fiscalizadora — Síndicos Titulares' },
-  { id: 'cpesa-8', name: 'Fabiana Lucía García', role: 'Comisión Fiscalizadora — Síndicos Titulares' },
-  { id: 'cpesa-9', name: 'Raúl Alberto Muñoz', role: 'Comisión Fiscalizadora — Síndicos Titulares' },
-  { id: 'cpesa-10', name: 'Pablo Gastón Muñoz', role: 'Síndicos Suplentes' },
-  { id: 'cpesa-11', name: 'Carlos Eduardo González', role: 'Síndicos Suplentes' },
-  { id: 'cpesa-12', name: 'Analía Silvia Padín', role: 'Síndicos Suplentes' },
+  { id: 'cpesa-7', name: 'Rodolfo Eduardo Moresi', role: 'Síndico Titular' },
+  { id: 'cpesa-8', name: 'Fabiana Lucía García', role: 'Síndica Titular' },
+  { id: 'cpesa-9', name: 'Raúl Alberto Muñoz', role: 'Síndico Titular' },
+  { id: 'cpesa-10', name: 'Pablo Gastón Muñoz', role: 'Síndico Suplente' },
+  { id: 'cpesa-11', name: 'Carlos Eduardo González', role: 'Síndico Suplente' },
+  { id: 'cpesa-12', name: 'Analía Silvia Padín', role: 'Síndica Suplente' },
 ]
 
 const CPI_FALLBACK: PersonRow[] = [
   { id: 'cpi-1', name: 'Pablo Bernardo Peralta', role: 'Director no independiente' },
   { id: 'cpi-2', name: 'Brian Moss', role: 'Director no independiente' },
-  { id: 'cpi-3', name: 'Juan Llado', role: 'Director no independiente' },
+  { id: 'cpi-3', name: 'Juan Manuel Lladó', role: 'Director no independiente' },
 ]
+
+const PERSON_FIX: Record<string, { name?: string; role?: string }> = {
+  'isela angélica constantini': { role: 'Directora Titular' },
+  'juan manuel llado': { name: 'Juan Manuel Lladó' },
+  'juan manuel lladó': { name: 'Juan Manuel Lladó' },
+  'juan llado': { name: 'Juan Manuel Lladó' },
+  'juan lladó': { name: 'Juan Manuel Lladó' },
+  'rodolfo eduardo moresi': { role: 'Síndico Titular' },
+  'fabiana lucía garcía': { role: 'Síndica Titular' },
+  'raúl alberto muñoz': { role: 'Síndico Titular' },
+  'raul alberto muñoz': { role: 'Síndico Titular' },
+  'pablo gastón muñoz': { role: 'Síndico Suplente' },
+  'pablo gaston muñoz': { role: 'Síndico Suplente' },
+  'carlos eduardo gonzález': { role: 'Síndico Suplente' },
+  'carlos eduardo gonzalez': { role: 'Síndico Suplente' },
+  'analía silvia padín': { role: 'Síndica Suplente' },
+  'analia silvia padin': { role: 'Síndica Suplente' },
+}
+
+function presentPerson(p: PersonRow, lang: 'es' | 'en'): PersonRow {
+  const fix = PERSON_FIX[p.name.toLowerCase()]
+  if (!fix) return p
+  return {
+    ...p,
+    name: fix.name ?? p.name,
+    role: lang === 'es' && fix.role ? fix.role : p.role,
+  }
+}
 
 function mapMember(m: TeamMember, lang: 'es' | 'en'): PersonRow {
   const role =
@@ -76,7 +104,7 @@ export default async function DirectoriosPage() {
   const boardCPI = board.filter(m => m.entidad === 'CPI')
   const boardCPESA = board.filter(m => m.entidad !== 'CPI')
 
-  const exec: PersonRow[] = useCms && mgmtCPESA.length
+  const exec: PersonRow[] = (useCms && mgmtCPESA.length
     ? mgmtCPESA.map(m => mapMember(m, lang))
     : EXEC_FALLBACK.map(p => ({
         ...p,
@@ -84,27 +112,30 @@ export default async function DirectoriosPage() {
           lang === 'en'
             ? ({ Presidente: 'President', Vicepresidente: 'Vice President', CFO: 'CFO', 'Gerente General': 'General Manager' } as Record<string, string>)[p.role] || p.role
             : p.role,
-      }))
+      }))).map(p => presentPerson(p, lang))
 
-  const cpesa: PersonRow[] = useCms && boardCPESA.length
+  const cpesa: PersonRow[] = (useCms && boardCPESA.length
     ? boardCPESA.map(m => mapMember(m, lang))
     : CPESA_FALLBACK.map(p => ({
         ...p,
         role:
           lang === 'en'
             ? p.role
+                .replace('Directora Titular', 'Director')
                 .replace('Director Titular', 'Director')
-                .replace('Comisión Fiscalizadora — Síndicos Titulares', 'Statutory Auditors — Titular')
-                .replace('Síndicos Suplentes', 'Alternate Statutory Auditors')
+                .replace('Síndica Titular', 'Statutory Auditor')
+                .replace('Síndico Titular', 'Statutory Auditor')
+                .replace('Síndica Suplente', 'Alternate Statutory Auditor')
+                .replace('Síndico Suplente', 'Alternate Statutory Auditor')
             : p.role,
-      }))
+      }))).map(p => presentPerson(p, lang))
 
-  const cpi: PersonRow[] = useCms && boardCPI.length
+  const cpi: PersonRow[] = (useCms && boardCPI.length
     ? boardCPI.map(m => mapMember(m, lang))
     : CPI_FALLBACK.map(p => ({
         ...p,
         role: lang === 'en' ? 'Non-independent director' : p.role,
-      }))
+      }))).map(p => presentPerson(p, lang))
 
   return (
     <div className="dir-page">

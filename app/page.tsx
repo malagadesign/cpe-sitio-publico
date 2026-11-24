@@ -26,7 +26,7 @@ export default async function HomePage() {
   const heroLedeEn = f['hero.lede.en'] || ''
 
   const stats = [
-    { val: f['stats.anios'] || '25+', es: 'años en upstream arg.', en: 'yrs Argentine upstream' },
+    { val: f['stats.anios'] || '20+', es: 'años en upstream arg.', en: 'yrs Argentine upstream' },
     { val: f['stats.ha'] || '372k', es: 'hectáreas operadas', en: 'operated hectares' },
     { val: f['stats.cuencas'] || '3', es: 'cuencas de interés', en: 'basins of interest' },
     { val: String(wells.activos || f['stats.pozos'] || '706'), es: 'pozos productivos', en: 'producing wells' },
@@ -53,7 +53,7 @@ export default async function HomePage() {
                 ? <span className="lang-es" aria-hidden={lang !== 'es'}>{heroTitleEs}</span>
                 : (
                   <span className="lang-es" aria-hidden={lang !== 'es'}>
-                    Energía que sostiene la matriz productiva Argentina
+                    Energía que sostiene la matriz productiva argentina
                   </span>
                 )}
               {heroTitleEn
@@ -117,9 +117,9 @@ export default async function HomePage() {
               <div className="scale-map-copy">
                 <h2 className="scale-map-title">
                   <span className="scale-map-title-line">
-                    <span className="scale-map-title-cap">W</span>ork
+                    <span className="scale-map-title-cap">W</span>orking
                   </span>
-                  <span className="scale-map-title-line">in interest</span>
+                  <span className="scale-map-title-line">interest</span>
                 </h2>
               </div>
               <div className="scale-map-visual">

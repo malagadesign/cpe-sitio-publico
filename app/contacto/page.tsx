@@ -48,10 +48,10 @@ export default async function ContactoPage() {
               </h1>
               <p className="con-lede">
                 <span className="lang-es" aria-hidden={lang !== 'es'}>
-                  Completá el formulario y nuestro equipo de comercialización te contactará.
+                  Completá el formulario y nuestro equipo te contactará.
                 </span>
                 <span className="lang-en" aria-hidden={lang !== 'en'}>
-                  Complete the form and our commercial team will get in touch.
+                  Complete the form and our team will get in touch.
                 </span>
               </p>
               <p className="con-direct-label">
@@ -73,7 +73,7 @@ export default async function ContactoPage() {
       <section className="con-offices" aria-labelledby="con-offices-heading">
         <div className="container">
           <h2 id="con-offices-heading" className="con-offices-title">
-            <span className="lang-es" aria-hidden={lang !== 'es'}>Nuestras Oficinas</span>
+            <span className="lang-es" aria-hidden={lang !== 'es'}>Nuestras oficinas</span>
             <span className="lang-en" aria-hidden={lang !== 'en'}>Our Offices</span>
           </h2>
           <UbicacionesMap lang={lang} />

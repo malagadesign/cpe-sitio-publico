@@ -4,6 +4,13 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import Image from 'next/image'
 import ArgentinaMap from '@/components/ArgentinaMap'
 import type { BlockPhoto, OperationsBlock } from '@/lib/content-fetch'
+import { formatFigures } from '@/lib/production'
+
+function presentOpsCopy(text: string): string {
+  return formatFigures(text)
+    .replaceAll('Cuenca San Jorge', 'Cuenca del Golfo San Jorge')
+    .replaceAll('95 WI', '95 % WI')
+}
 
 const EXPLORACION = new Set(['cerro'])
 
@@ -225,14 +232,14 @@ export default function OpsWherePanel({
             </h3>
 
             <p className="ops-card-lede">
-              <span className="lang-es" aria-hidden={lang !== 'es'}>{active.lede_es}</span>
-              <span className="lang-en" aria-hidden={lang !== 'en'}>{active.lede_en}</span>
+              <span className="lang-es" aria-hidden={lang !== 'es'}>{presentOpsCopy(active.lede_es)}</span>
+              <span className="lang-en" aria-hidden={lang !== 'en'}>{presentOpsCopy(active.lede_en)}</span>
             </p>
 
             {chips.length > 0 && (
               <div className="ops-card-chips">
                 {chips.map((chip, i) => (
-                  <span className="ops-card-chip" key={i}>{chip}</span>
+                  <span className="ops-card-chip" key={i}>{presentOpsCopy(chip)}</span>
                 ))}
               </div>
             )}
@@ -247,7 +254,7 @@ export default function OpsWherePanel({
             </p>
             <div className="ops-card-body">
               {(lang === 'es' ? (active.body_es ?? []) : (active.body_en ?? [])).map((para, i) => (
-                <p key={i}>{para}</p>
+                <p key={i}>{presentOpsCopy(para)}</p>
               ))}
             </div>
 
@@ -262,7 +269,7 @@ export default function OpsWherePanel({
                         <span className="lang-en" aria-hidden={lang !== 'en'}>{stat.label_en}</span>
                       </span>
                       {': '}
-                      <span>{lang === 'en' && stat.val_en ? stat.val_en : stat.val}</span>
+                      <span>{presentOpsCopy(lang === 'en' && stat.val_en ? stat.val_en : stat.val)}</span>
                     </li>
                   ))}
                 </ul>

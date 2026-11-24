@@ -43,7 +43,7 @@ const PILLARS = [
     title_es: 'Transparencia y compromiso',
     title_en: 'Transparency and commitment',
     body_es:
-      'Promovemos una gestión transparente y relaciones de confianza con nuestros inversores, colaboradores, autoridades y comunidades, basados en el cumplimiento de nuestros compromisos y una visión de largo plazo. Cumplimos con NI 51-101 y NI 52-110.',
+      'Promovemos una gestión transparente y relaciones de confianza con nuestros inversores, colaboradores, autoridades y comunidades, basadas en el cumplimiento de nuestros compromisos y una visión de largo plazo. Cumplimos con NI 51-101 y NI 52-110.',
     body_en:
       'We promote transparent management and trusted relationships with investors, employees, authorities and communities, grounded in meeting our commitments and a long-term view. We comply with NI 51-101 and NI 52-110.',
   },

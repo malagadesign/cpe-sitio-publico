@@ -5,7 +5,7 @@ import { createSupabaseServerAdminClient } from '@/lib/supabase'
 import { getEffectiveLang } from '@/lib/lang'
 import { PRODUCTION_1Q2026 } from '@/lib/production'
 import { SPROULE_2P_2025, totalReserves } from '@/lib/reserves'
-import { formatDecimal } from '@/lib/format'
+import { formatDecimal, formatNumber } from '@/lib/format'
 import IrSubscribeForm from './IrSubscribeForm'
 
 export const revalidate = 60
@@ -52,7 +52,7 @@ export default async function InversoresPage() {
   const reserveRows = [...reserves.categories, total]
 
   const credit = calificacionLocal[0] ?? {
-    plazo: 'Largo Plazo',
+    plazo: 'Largo plazo',
     fecha: '2026-08-26',
     rating: 'BBB+(arg)',
     perspectiva: 'Positiva',
@@ -84,12 +84,14 @@ export default async function InversoresPage() {
           </h1>
           <p className="inv-hero-lede">
             <span className="lang-es" aria-hidden={lang !== 'es'}>
-              {f['page.inversores.lede'] ||
-                'Crown Point Energía S.A. es una empresa dedicada al petróleo y gas con cobertura internacional que opera en el mercado argentino. Su empresa holding Crown Point Energy Inc. cotiza en el Toronto Stock Exchange Venture (TSXV) bajo el símbolo "CWV". La Compañía está constituida en Canadá y tiene su sede central en Buenos Aires, Argentina.'}
+              {(f['page.inversores.lede'] ||
+                'Crown Point Energía S.A. es una empresa dedicada al petróleo y gas con cobertura internacional que opera en el mercado argentino. Su empresa holding Crown Point Energy Inc. cotiza en el TSX Venture Exchange (TSXV) bajo el símbolo "CWV". La Compañía está constituida en Canadá y tiene su sede central en Buenos Aires, Argentina.')
+                .replaceAll('Toronto Stock Exchange Venture', 'TSX Venture Exchange')}
             </span>
             <span className="lang-en" aria-hidden={lang !== 'en'}>
-              {fe['page.inversores.lede'] ||
-                'Crown Point Energía S.A. is an oil and gas company with international coverage operating in the Argentine market. Its holding company, Crown Point Energy Inc., trades on the Toronto Stock Exchange Venture (TSXV) under the symbol "CWV". The Company is incorporated in Canada and headquartered in Buenos Aires, Argentina.'}
+              {(fe['page.inversores.lede'] ||
+                'Crown Point Energía S.A. is an oil and gas company with international coverage operating in the Argentine market. Its holding company, Crown Point Energy Inc., trades on the TSX Venture Exchange (TSXV) under the symbol "CWV". The Company is incorporated in Canada and headquartered in Buenos Aires, Argentina.')
+                .replaceAll('Toronto Stock Exchange Venture', 'TSX Venture Exchange')}
             </span>
           </p>
         </div>
@@ -123,7 +125,10 @@ export default async function InversoresPage() {
                   <span className="lang-en" aria-hidden={lang !== 'en'}>01 · Production</span>
                 </p>
                 <div className="inv-metric-row">
-                  <p className="inv-metric-value">{PRODUCTION_1Q2026.avgBoePerDay}</p>
+                  <p className="inv-metric-value">
+                    <span className="lang-es" aria-hidden={lang !== 'es'}>{formatNumber(PRODUCTION_1Q2026.avgBoePerDay, 'es')}</span>
+                    <span className="lang-en" aria-hidden={lang !== 'en'}>{formatNumber(PRODUCTION_1Q2026.avgBoePerDay, 'en')}</span>
+                  </p>
                   <span className="inv-metric-unit">{PRODUCTION_1Q2026.unit}</span>
                 </div>
                 <div className="inv-metric-meta">
@@ -145,7 +150,10 @@ export default async function InversoresPage() {
                   <span className="lang-en" aria-hidden={lang !== 'en'}>02 · Costs</span>
                 </p>
                 <div className="inv-metric-row">
-                  <p className="inv-metric-value">US$38.8</p>
+                  <p className="inv-metric-value">
+                    <span className="lang-es" aria-hidden={lang !== 'es'}>US${formatDecimal(38.8, 'es', 1)}</span>
+                    <span className="lang-en" aria-hidden={lang !== 'en'}>US${formatDecimal(38.8, 'en', 1)}</span>
+                  </p>
                   <span className="inv-metric-unit">/boe</span>
                 </div>
                 <div className="inv-metric-meta">
@@ -217,8 +225,14 @@ export default async function InversoresPage() {
                         {r.category === 'Total Probadas' ? 'Total Proved' : r.category === 'Total Probables' ? 'Total Probable' : r.category}
                       </span>
                     </td>
-                    <td className="num">{formatDecimal(r.gross, lang, 2)}</td>
-                    <td className="num">{formatDecimal(r.net, lang, 2)}</td>
+                    <td className="num">
+                      <span className="lang-es" aria-hidden={lang !== 'es'}>{formatDecimal(r.gross, 'es', 2)}</span>
+                      <span className="lang-en" aria-hidden={lang !== 'en'}>{formatDecimal(r.gross, 'en', 2)}</span>
+                    </td>
+                    <td className="num">
+                      <span className="lang-es" aria-hidden={lang !== 'es'}>{formatDecimal(r.net, 'es', 2)}</span>
+                      <span className="lang-en" aria-hidden={lang !== 'en'}>{formatDecimal(r.net, 'en', 2)}</span>
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -274,7 +288,7 @@ export default async function InversoresPage() {
               <div className="inv-valor-body">
                 <div className="lang-es" aria-hidden={lang !== 'es'}>
                   <p>
-                    Reservas certificadas bajo NI 51-101 (una normativa de Canadá), contratos de suministro energético en USD y moneda local indexada, y un equipo con más de 25 años de experiencia en el upstream.
+                    Reservas certificadas bajo NI 51-101 (norma canadiense), contratos de suministro energético en USD y moneda local indexada, y un equipo con más de 20 años de experiencia en el upstream.
                   </p>
                   <p className="inv-valor-heading">Producción base diversificada</p>
                   <p>Mix balanceado de gas natural, crudo y NGL en cinco bloques y tres cuencas.</p>
@@ -283,7 +297,7 @@ export default async function InversoresPage() {
                 </div>
                 <div className="lang-en" aria-hidden={lang !== 'en'}>
                   <p>
-                    Reserves certified under NI 51-101 (a Canadian regulation), energy supply contracts in USD and indexed local currency, and a team with 25+ years of upstream experience.
+                    Reserves certified under NI 51-101 (a Canadian regulation), energy supply contracts in USD and indexed local currency, and a team with 20+ years of upstream experience.
                   </p>
                   <p className="inv-valor-heading">Diversified base production</p>
                   <p>A balanced mix of natural gas, crude and NGLs across five blocks and three basins.</p>
@@ -350,7 +364,7 @@ export default async function InversoresPage() {
             <tbody>
               <tr>
                 <td>{fmtFixDate(credit.fecha)}</td>
-                <td>{credit.plazo}</td>
+                <td>{credit.plazo.replace('Largo Plazo', 'Largo plazo')}</td>
                 <td><span className="inv-credit-rating">{credit.rating}</span></td>
                 <td>{credit.perspectiva}</td>
                 <td>{credit.accion}</td>

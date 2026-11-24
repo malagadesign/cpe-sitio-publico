@@ -12,20 +12,20 @@ const LOCATIONS = [
   {
     id: 'koluel',
     name: 'Unidad de Gestión Golfo San Jorge (Koluel Kaike – Distrito IV)',
-    address: 'Ruta Provincial 43, km. 87,6, Santa Cruz, AR',
+    address: 'Ruta Provincial 43, km 87,6, Santa Cruz, AR',
     mapsQuery: 'Ruta+Provincial+43+km+87.6+Koluel+Kaike+Santa+Cruz+Argentina',
   },
   {
     id: 'piedra',
     name: 'Unidad de Gestión Golfo San Jorge (Piedra Clavada)',
-    address: 'Ruta Provincial 43, km. 102, Santa Cruz, AR',
+    address: 'Ruta Provincial 43, km 102, Santa Cruz, AR',
     mapsQuery: 'Ruta+Provincial+43+km+102+Piedra+Clavada+Santa+Cruz+Argentina',
   },
   {
     id: 'tordillo',
     name: 'Yacimiento El Tordillo',
-    address: 'Ruta 26, km. 11 desvío El Tordillo, Comodoro Rivadavia, Chubut U9000, AR',
-    mapsQuery: 'Ruta+26+km+11+desvio+El+Tordillo+Comodoro+Rivadavia+Chubut+Argentina',
+    address: 'Ruta Nacional 26, km 11 desvío El Tordillo, Comodoro Rivadavia, Chubut U9000, AR',
+    mapsQuery: 'Ruta+Nacional+26+km+11+desvio+El+Tordillo+Comodoro+Rivadavia+Chubut+Argentina',
   },
   {
     id: 'calgary',

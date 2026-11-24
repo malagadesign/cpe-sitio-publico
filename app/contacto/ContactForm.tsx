@@ -282,7 +282,7 @@ function ContactFormInner({ lang }: { lang: 'es' | 'en' }) {
             required
             rows={2}
             placeholder={
-              lang === 'es' ? 'Cuéntanos brevemente qué necesitás' : 'Tell us briefly what you need'
+              lang === 'es' ? 'Contanos brevemente qué necesitás' : 'Tell us briefly what you need'
             }
           />
         </div>

@@ -61,13 +61,13 @@ VALUES
   ),
   (
     'Isela Angélica Constantini',
-    'Director Titular',
+    'Directora Titular',
     'Director',
     '', '',
     'IC',
     'linear-gradient(135deg,#1A5C5C,#2E8A7A)',
     'board',
-    'Director Titular',
+    'Directora Titular',
     NULL,
     5
   ),
@@ -84,7 +84,7 @@ VALUES
     6
   ),
   (
-    'Juan Manuel Llado',
+    'Juan Manuel Lladó',
     'Director Titular',
     'Director',
     '', '',
@@ -123,13 +123,13 @@ VALUES
   ),
   (
     'Fabiana Lucía García',
-    'Síndico Titular',
+    'Síndica Titular',
     'Statutory Auditor',
     '', '',
     'FG',
     'linear-gradient(135deg,#6B1A2E,#9E2A45)',
     'board',
-    'Síndico Titular',
+    'Síndica Titular',
     NULL,
     10
   ),
@@ -172,13 +172,13 @@ VALUES
   ),
   (
     'Analía Silvia Padín',
-    'Síndico Suplente',
+    'Síndica Suplente',
     'Alternate Statutory Auditor',
     '', '',
     'AS',
     'linear-gradient(135deg,#5C8700,#82BC00)',
     'board',
-    'Síndico Suplente',
+    'Síndica Suplente',
     NULL,
     14
   );

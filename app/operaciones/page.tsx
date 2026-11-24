@@ -3,7 +3,8 @@ import { getCmsState } from '@/lib/cms'
 import { fetchBlockPhotosBySlug, fetchOperationsBlocks, sumWellsFromBlocks } from '@/lib/content-fetch'
 import { OPS_BLOCKS_FALLBACK } from '@/lib/ops-blocks-fallback'
 import { getEffectiveLang } from '@/lib/lang'
-import { PRODUCTION_1Q2026, productionMixRatio } from '@/lib/production'
+import { formatNumber } from '@/lib/format'
+import { formatFigures, PRODUCTION_1Q2026, productionMixRatio } from '@/lib/production'
 import OpsWherePanel from '@/components/OpsWherePanel'
 
 export const revalidate = 60
@@ -44,13 +45,13 @@ export default async function OperacionesPage() {
       val: String(wells.activos || 706),
       unitEs: 'activos',
       unitEn: 'active',
-      metaEs: `+${wells.inyectores || 235} inyectores en operación`,
-      metaEn: `+${wells.inyectores || 235} injectors in operation`,
+      metaEs: `${wells.inyectores || 235} inyectores en operación`,
+      metaEn: `${wells.inyectores || 235} injectors in operation`,
     },
     {
       labelEs: 'Producción promedio',
       labelEn: 'Average production',
-      val: f['ops.kpi.production'] || PRODUCTION_1Q2026.avgBoePerDay,
+      val: formatFigures(f['ops.kpi.production'] || formatNumber(PRODUCTION_1Q2026.avgBoePerDay, 'es')),
       unitEs: PRODUCTION_1Q2026.unit,
       unitEn: PRODUCTION_1Q2026.unit,
       metaEs: f['ops.kpi.production.meta'] || `Producción · Q1 2026`,

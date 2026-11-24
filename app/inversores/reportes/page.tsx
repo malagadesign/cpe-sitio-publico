@@ -90,6 +90,19 @@ function fmtRecordDate(iso: string | null, lang: 'es' | 'en'): string {
   return fmtLongDate(iso, lang)
 }
 
+/** Unifica mayúsculas y la forma de los montos, venga el texto del respaldo o de la base. */
+function formatOnConcepto(text: string): string {
+  return text
+    .replace(/\bON clase\b/gi, 'ON Clase')
+    .replace(/\bMILLONES\b/g, 'millones')
+    .replace(/\bUSD (\d+(?:[.,]\d+)?) MM\b/g, 'USD $1 millones')
+    .replace(/\bPOR HASTA\b/g, 'por hasta')
+    .replace(/\bAMPLIABLE A\b/g, 'ampliable a')
+    .replace(/\bGarantizadas Por\b/g, 'Garantizadas por')
+    .replace(/\bClase ([IVX]+) Por hasta\b/g, 'Clase $1 por hasta')
+    .replace(/millones ampliable/gi, 'millones, ampliable')
+}
+
 const HECHOS_FALLBACK: CnvHecho[] = [
   {
     doc_id: 1,
@@ -119,7 +132,7 @@ const HECHOS_FALLBACK: CnvHecho[] = [
 
 const ON_FALLBACK: OnVigente[] = [
   {
-    concepto: 'Obligaciones Negociables Clase VI Garantizadas POR HASTA USD 20 MILLONES AMPLIABLE A USD 30 MILLONES',
+    concepto: 'Obligaciones Negociables Clase VI Garantizadas por hasta USD 20 millones, ampliable a USD 30 millones',
     fecha: '2026-08-10',
     isin: 'AR0134464806',
     rating: 'A(arg)',
@@ -127,7 +140,7 @@ const ON_FALLBACK: OnVigente[] = [
     accion: 'SUBE',
   },
   {
-    concepto: 'Obligaciones Negociables Clase VII Por hasta USD 10 MM ampliables por hasta USD 25 MM de manera conjunta con las ON clase VIII',
+    concepto: 'Obligaciones Negociables Clase VII por hasta USD 10 millones, ampliables por hasta USD 25 millones de manera conjunta con las ON Clase VIII',
     fecha: '2026-08-10',
     isin: 'AR0370555119',
     rating: 'BBB+(arg)',
@@ -135,7 +148,7 @@ const ON_FALLBACK: OnVigente[] = [
     accion: 'SUBE',
   },
   {
-    concepto: 'Obligaciones Negociables Clase IX Garantizadas Por hasta USD 15 millones ampliables hasta USD 30 millones',
+    concepto: 'Obligaciones Negociables Clase IX Garantizadas por hasta USD 15 millones, ampliables hasta USD 30 millones',
     fecha: '2026-08-10',
     isin: 'AR0764757453',
     rating: 'A(arg)',
@@ -395,7 +408,7 @@ export default async function ReportesPage() {
               <tbody>
                 {onVigentes.map(on => (
                   <tr key={on.isin}>
-                    <td className="rep-on-instrumento">{on.concepto}</td>
+                    <td className="rep-on-instrumento">{formatOnConcepto(on.concepto)}</td>
                     <td>{fmtOnDate(on.fecha)}</td>
                     <td>{on.isin}</td>
                     <td><span className="rep-on-rating">{on.rating}</span></td>

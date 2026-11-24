@@ -129,7 +129,7 @@ export default async function AcercaPage() {
                 </h3>
                 <p>
                   <span className="lang-es" aria-hidden={lang !== 'es'}>
-                    Explorar, desarrollar y producir petróleo y gas de manera eficiente, maximizando el potencial de nuestros activos mediante inversión, tecnología y excelencia operativa, generando valor sostenible que acelere el pulso productivo de la Argentina
+                    Explorar, desarrollar y producir petróleo y gas de manera eficiente, maximizando el potencial de nuestros activos mediante inversión, tecnología y excelencia operativa, generando valor sostenible que acelere el pulso productivo de la Argentina.
                   </span>
                   <span className="lang-en" aria-hidden={lang !== 'en'}>
                     Explore, develop and produce oil and gas efficiently, maximizing asset potential through investment, technology and operational excellence—creating sustainable value that accelerates Argentina&apos;s productive pulse.

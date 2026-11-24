@@ -11,12 +11,11 @@ export const metadata = {
 const abbrevs = [
   { abbr: '3D', es: 'tres dimensiones', en: 'three dimensional' },
   { abbr: 'bbl', es: 'barril', en: 'barrel' },
-  { abbr: 'bbls', es: 'barriles', en: 'barrels' },
   { abbr: 'bcf', es: 'mil millones de pies cúbicos', en: 'billion cubic feet' },
-  { abbr: 'bls/d o bbls/d', es: 'barriles por día', en: 'barrels per day' },
-  { abbr: 'BOE', es: 'barriles de petróleo equivalente', en: 'barrels of oil equivalent' },
+  { abbr: 'bbl/d', es: 'barriles por día', en: 'barrels per day' },
+  { abbr: 'boe', es: 'barriles de petróleo equivalente', en: 'barrels of oil equivalent' },
   {
-    abbr: 'boepd',
+    abbr: 'boe/d',
     es: 'barriles de petróleo equivalente por día',
     en: 'barrels of oil equivalent per day',
   },
@@ -26,10 +25,11 @@ const abbrevs = [
   { abbr: 'm', es: 'metros', en: 'metres' },
   { abbr: 'm³', es: 'metros cúbicos', en: 'cubic metres' },
   { abbr: 'm³/d', es: 'metros cúbicos por día', en: 'cubic metres per day' },
-  { abbr: 'mcf', es: 'mil pies cúbicos', en: 'thousand cubic feet' },
-  { abbr: 'mcf/d', es: 'mil pies cúbicos por día', en: 'thousand cubic feet per day' },
+  { abbr: 'Mcf', es: 'mil pies cúbicos', en: 'thousand cubic feet' },
+  { abbr: 'Mcf/d', es: 'mil pies cúbicos por día', en: 'thousand cubic feet per day' },
   { abbr: 'Mm³/d', es: 'miles de metros cúbicos por día', en: 'thousand cubic metres per day' },
-  { abbr: 'MMbls / MMbbls / MMbl', es: 'millones de barriles', en: 'million barrels' },
+  { abbr: 'MMbbl', es: 'millones de barriles', en: 'million barrels' },
+  { abbr: 'MMboe', es: 'millones de barriles de petróleo equivalente', en: 'million barrels of oil equivalent' },
   {
     abbr: 'mmcfgd',
     es: 'millones de pies cúbicos de gas por día',
@@ -60,15 +60,15 @@ export default async function AvisosPage() {
       section="avisos"
       titleEs="Avisos legales"
       titleEn="Legal notices"
-      ledeEs="Declaraciones prospectivas, medidas de la industria y abreviaciones técnicas."
+      ledeEs="Declaraciones prospectivas, medidas de la industria y abreviaturas técnicas."
       ledeEn="Forward-looking statements, industry measures and technical abbreviations."
     >
       <div className="lang-es" aria-hidden={lang !== 'es'}>
         <h2>Declaraciones prospectivas</h2>
         <p>
-          Este documento contiene información de carácter prospectivo. Esta información se refiere a eventos futuros
+          Este sitio contiene información de carácter prospectivo. Esta información se refiere a eventos futuros
           y al desempeño futuro de Crown Point Energy Inc. (&quot;Crown Point&quot;, &quot;nosotros&quot; o &quot;la
-          Compañía&quot;). Toda la información y las declaraciones contenidas en este documento que no sean
+          Compañía&quot;). Toda la información y las declaraciones contenidas en este sitio que no sean
           claramente de naturaleza histórica constituyen información prospectiva, y las palabras &quot;puede&quot;,
           &quot;podrá&quot;, &quot;debería&quot;, &quot;podría&quot;, &quot;esperar&quot;, &quot;planear&quot;,
           &quot;pretender&quot;, &quot;anticipar&quot;, &quot;creer&quot;, &quot;estimar&quot;, &quot;proponer&quot;,
@@ -78,17 +78,16 @@ export default async function AvisosPage() {
           internas, estimaciones, expectativas, creencias, planes, objetivos, supuestos, intenciones o declaraciones
           sobre eventos o resultados futuros. Esta información implica riesgos, incertidumbres y otros factores
           conocidos y desconocidos que pueden hacer que los resultados o eventos reales difieran materialmente de
-          los anticipados en dicha información prospectiva. Además, este documento puede contener información
+          los anticipados en dicha información prospectiva. Además, este sitio puede contener información
           prospectiva atribuida a fuentes de la industria de terceros. Crown Point considera que las expectativas
           reflejadas en esta información prospectiva son razonables; sin embargo, no se debe depositar una confianza
           excesiva en esta información prospectiva, ya que no puede garantizarse que los planes, intenciones o
           expectativas en los que se basan ocurrirán.
         </p>
         <p>
-          Este documento contiene declaraciones prospectivas conforme a las leyes de valores aplicables, incluyendo,
+          Este sitio contiene declaraciones prospectivas conforme a las leyes de valores aplicables, incluyendo,
           entre otras: nuestra creencia de que Crown Point cuenta con una cartera de activos con potencial al alza
-          en producción, desarrollo y exploración; nuestra creencia de que las concesiones en Tierra del Fuego tienen
-          potencial al alza en gas; nuestra creencia de que nuestros activos de exploración ofrecen potencial al alza
+          en producción, desarrollo y exploración; de que nuestros activos de exploración ofrecen potencial al alza
           adicional; la posición y disposición de Crown Point para adquirir activos adicionales; y otras
           declaraciones con respecto a actividades operativas, comerciales y otras actividades esperadas. Tales
           declaraciones se consideran información prospectiva en la medida en que implican la evaluación, basada en
@@ -96,7 +95,7 @@ export default async function AvisosPage() {
           económicamente en el futuro.
         </p>
         <p>
-          Con respecto a la información prospectiva contenida en este documento, Crown Point ha formulado supuestos
+          Con respecto a la información prospectiva contenida en este sitio, Crown Point ha formulado supuestos
           sobre, entre otras cosas: los precios vigentes de los commodities y los tipos de cambio (incluidos los
           vigentes en Argentina); los precios futuros de petróleo, gas natural y LGN; las tasas de regalías y leyes
           impositivas aplicables; las tasas futuras de producción de pozos y los volúmenes de recursos y reservas; el
@@ -110,7 +109,7 @@ export default async function AvisosPage() {
           financiamiento en condiciones aceptables cuando sea necesario.
         </p>
         <p>
-          Dado que la información prospectiva aborda eventos y condiciones futuras, por su propia naturaleza conlleva
+          Dado que la información prospectiva aborda eventos y condiciones futuros, por su propia naturaleza conlleva
           riesgos e incertidumbres inherentes. Los resultados reales podrían diferir materialmente de los
           actualmente anticipados debido a varios factores y riesgos. Estos riesgos incluyen, sin limitación:
           riesgos asociados con la exploración, el desarrollo, la explotación, la producción, la comercialización y
@@ -126,7 +125,7 @@ export default async function AvisosPage() {
           lectores que la lista anterior no es exhaustiva.
         </p>
         <p>
-          Las declaraciones prospectivas contenidas en este documento se realizan a la fecha del mismo y Crown Point
+          Las declaraciones prospectivas contenidas en este sitio se realizan a la fecha del mismo y Crown Point
           no asume ninguna obligación de actualizar públicamente ni de revisar ninguna de las declaraciones
           prospectivas incluidas, ya sea como resultado de nueva información, eventos futuros o de cualquier otro
           modo, excepto según lo que pueda requerir la legislación de valores aplicable.
@@ -163,7 +162,7 @@ export default async function AvisosPage() {
           Información Financiera (&quot;NIIF&quot;) y pueden no ser comparables con el cálculo de medidas similares
           utilizadas por otras entidades. Las medidas no-NIIF no deben considerarse alternativas a las medidas
           determinadas de acuerdo con las NIIF, ni más significativas que estas, como indicadores del desempeño de
-          Crown Point. Este documento contiene los términos &quot;EBITDA&quot; (calculado como las ganancias antes de
+          Crown Point. Este sitio contiene los términos &quot;EBITDA&quot; (calculado como las ganancias antes de
           intereses, impuestos, depreciación y amortización) y &quot;margen operativo neto&quot; (calculado por unidad
           como los ingresos de petróleo, gas natural y LGN menos impuesto a la exportación, regalías y costos
           operativos), que no deben considerarse alternativas a la utilidad neta según lo determinado por las NIIF
@@ -176,7 +175,7 @@ export default async function AvisosPage() {
 
         <h2>Medidas de petróleo y gas</h2>
         <p>
-          Este documento también contiene otros parámetros y términos de la industria, incluido el &quot;margen
+          Este sitio también contiene otros parámetros y términos de la industria, incluido el &quot;margen
           operativo neto&quot;, que es una medida no-NIIF. El margen operativo neto se calcula por unidad como los
           ingresos de petróleo, gas natural y LGN menos impuesto a la exportación, regalías y costos operativos. La
           dirección considera que esta medida es una herramienta suplementaria útil para evaluar la rentabilidad de
@@ -190,12 +189,12 @@ export default async function AvisosPage() {
           representan el valor justo de mercado de nuestras reservas.
         </p>
 
-        <h2>Abreviaciones</h2>
-        <p>Las siguientes abreviaciones que pueden utilizarse en este documento tienen los significados que se indican a continuación:</p>
+        <h2>Abreviaturas</h2>
+        <p>Las siguientes abreviaturas que pueden utilizarse en este sitio tienen los significados que se indican a continuación:</p>
         <table className="legal-abbrev">
           <thead>
             <tr>
-              <th>Abreviación</th>
+              <th>Abreviatura</th>
               <th>Significado</th>
             </tr>
           </thead>
@@ -233,8 +232,8 @@ export default async function AvisosPage() {
         <p>
           This document contains forward-looking statements under applicable securities laws, including, but not
           limited to, the following: our belief that Crown Point has a portfolio of assets with production,
-          development and exploration upside; our belief that the Tierra del Fuego concessions have upside gas
-          potential; our belief that our exploration assets provide additional upside; Crown Point&apos;s position
+          development and exploration upside; our belief that our exploration assets provide additional upside;
+          Crown Point&apos;s position
           and readiness to acquire additional assets; and other statements herein with respect to intended
           operational, business and other expected activities. Such statements are deemed to be forward-looking
           information, as they involve the implied assessment, based on certain estimates and assumptions, that the

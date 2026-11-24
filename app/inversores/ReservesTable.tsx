@@ -44,8 +44,14 @@ export default function ReservesTable({ lang }: { lang: 'es' | 'en' }) {
                   <span className="lang-es" aria-hidden={lang !== 'es'}>{r.category}</span>
                   <span className="lang-en" aria-hidden={lang !== 'en'}>{r.category === 'Total 2P' ? 'Total 2P' : r.category === 'Total Probadas' ? 'Total Proved' : r.category === 'Total Probables' ? 'Total Probable' : r.category}</span>
                 </td>
-                <td className="num">{formatDecimal(r.gross, lang, 2)}</td>
-                <td className="num">{formatDecimal(r.net, lang, 2)}</td>
+                <td className="num">
+                  <span className="lang-es" aria-hidden={lang !== 'es'}>{formatDecimal(r.gross, 'es', 2)}</span>
+                  <span className="lang-en" aria-hidden={lang !== 'en'}>{formatDecimal(r.gross, 'en', 2)}</span>
+                </td>
+                <td className="num">
+                  <span className="lang-es" aria-hidden={lang !== 'es'}>{formatDecimal(r.net, 'es', 2)}</span>
+                  <span className="lang-en" aria-hidden={lang !== 'en'}>{formatDecimal(r.net, 'en', 2)}</span>
+                </td>
               </tr>
             ))}
           </tbody>

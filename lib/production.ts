@@ -2,7 +2,7 @@
 // inversores and operaciones. All three pages must read from here — do not
 // hardcode these numbers again in a page component.
 export const PRODUCTION_1Q2026 = {
-  avgBoePerDay: '8,672',
+  avgBoePerDay: 8672,
   unit: 'boe/d',
   period: '1Q 2026',
   /** % líquidos / petróleo */
@@ -22,4 +22,12 @@ export function productionMixLabel(lang: 'es' | 'en'): string {
 export function productionMixRatio(): string {
   const { oilPct, gasPct } = PRODUCTION_1Q2026
   return `${gasPct}/${oilPct}`
+}
+
+/** Punto de miles y unidades de producción en minúscula. */
+export function formatFigures(text: string): string {
+  return text
+    .replace(/(\d),(?=\d{3}(?!\d))/g, '$1.')
+    .replace(/\bBbl\/d\b/g, 'bbl/d')
+    .replace(/\bBoe\/d\b/g, 'boe/d')
 }

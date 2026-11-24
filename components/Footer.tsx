@@ -59,7 +59,7 @@ export default function Footer({ lang = 'es' }: { lang?: 'es' | 'en' }) {
             <h5><span className="lang-es" aria-hidden={lang !== 'es'}>Los yacimientos</span><span className="lang-en" aria-hidden={lang !== 'en'}>The fields</span></h5>
             <ul>
               <li><Link href="/operaciones#cerro">Cerro de Los Leones</Link></li>
-              <li><Link href="/operaciones#tordillo">El Tordillo · La Tapera</Link></li>
+              <li><Link href="/operaciones#tordillo">El Tordillo · La Tapera · Puesto Quiroga</Link></li>
               <li><Link href="/operaciones#chanares">Chañares Herrados / PPCO</Link></li>
               <li><Link href="/operaciones#piedra">Piedra Clavada – Koluel Kaike</Link></li>
             </ul>
@@ -122,7 +122,7 @@ export default function Footer({ lang = 'es' }: { lang?: 'es' | 'en' }) {
         <div className="container">
           <div className="footer-bottom-bar">
             <p className="footer-copy">
-              © {new Date().getFullYear()} Crown Point Energy Inc. · TSXV: CWV
+              © {new Date().getFullYear()} Crown Point Energía S.A. · TSXV: CWV
             </p>
             <nav className="footer-legal-links" aria-label={lang === 'es' ? 'Enlaces legales' : 'Legal links'}>
               <Link href="/legal/terminos">

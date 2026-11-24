@@ -73,10 +73,10 @@ export default async function AsambleasPage() {
     <div className="asm-page">
       <section className="asm-hero" aria-labelledby="asm-heading">
         <div className="container">
-          <p className="asm-eyebrow">CPI · AGM</p>
+          <p className="asm-eyebrow">CPE Inc. · AGM</p>
           <h1 id="asm-heading" className="asm-title">
-            <span className="lang-es" aria-hidden={lang !== 'es'}>Materiales de asamblea — CPI</span>
-            <span className="lang-en" aria-hidden={lang !== 'en'}>Meeting materials — CPI</span>
+            <span className="lang-es" aria-hidden={lang !== 'es'}>Materiales de asamblea — CPE Inc.</span>
+            <span className="lang-en" aria-hidden={lang !== 'en'}>Meeting materials — CPE Inc.</span>
           </h1>
           <p className="asm-lede">
             <span className="lang-es" aria-hidden={lang !== 'es'}>
