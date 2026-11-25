@@ -137,6 +137,21 @@ html:has(.hero) .site-header .nav-submenu a,
 html:has(.den-page) .site-header .nav-submenu a,
 html:has(.legal-page) .site-header .nav-submenu a,
 html:has(.asm-page) .site-header .nav-submenu a { color: rgba(255,255,255,0.92); }
+/* Ingresar es un panel claro: el texto no puede heredar el blanco del header sobre foto */
+html:has(.page-hero.has-photo) .site-header .nav-submenu--panel a,
+html:has(.hero) .site-header .nav-submenu--panel a,
+html:has(.den-page) .site-header .nav-submenu--panel a,
+html:has(.legal-page) .site-header .nav-submenu--panel a,
+html:has(.asm-page) .site-header .nav-submenu--panel a { color: var(--fg); }
+html:has(.page-hero.has-photo) .site-header .nav-submenu--panel a:hover,
+html:has(.hero) .site-header .nav-submenu--panel a:hover,
+html:has(.den-page) .site-header .nav-submenu--panel a:hover,
+html:has(.legal-page) .site-header .nav-submenu--panel a:hover,
+html:has(.asm-page) .site-header .nav-submenu--panel a:hover {
+  color: var(--accent-deep);
+  background: var(--bg-alt);
+  font-weight: 500;
+}
 html:has(.page-hero.has-photo) .site-header .brand-logo,
 html:has(.hero) .site-header .brand-logo {
   filter: none;

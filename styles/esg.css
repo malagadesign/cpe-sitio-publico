@@ -83,18 +83,8 @@
   line-height: 0.985;
   color: #fff;
   text-transform: none;
-  margin: 0 0 10px;
-  max-width: 846px;
-}
-
-.esg-title-sub {
-  font-family: var(--font-body);
-  font-size: clamp(18px, min(2.4vw, 4vh), 40px);
-  font-weight: 400;
-  line-height: 1.15;
-  color: #fff;
   margin: 0 0 16px;
-  max-width: 28ch;
+  max-width: min(100%, 22em);
 }
 
 .esg-lede {

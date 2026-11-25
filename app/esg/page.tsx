@@ -123,13 +123,17 @@ export default async function EsgPage() {
             <span className="lang-en" aria-hidden={lang !== 'en'}>Corporate responsibility</span>
           </p>
           <h1 id="esg-heading" className="esg-title">
-            <span className="lang-es" aria-hidden={lang !== 'es'}>Un compromiso compartido</span>
-            <span className="lang-en" aria-hidden={lang !== 'en'}>A shared commitment</span>
+            <span className="lang-es" aria-hidden={lang !== 'es'}>
+              Un compromiso compartido
+              <br />
+              con las personas y el medioambiente
+            </span>
+            <span className="lang-en" aria-hidden={lang !== 'en'}>
+              A shared commitment
+              <br />
+              to people and the environment
+            </span>
           </h1>
-          <p className="esg-title-sub">
-            <span className="lang-es" aria-hidden={lang !== 'es'}>con las personas y el medioambiente</span>
-            <span className="lang-en" aria-hidden={lang !== 'en'}>to people and the environment</span>
-          </p>
           <p className="esg-lede">
             <span className="lang-es" aria-hidden={lang !== 'es'}>
               Integramos el cuidado del ambiente, la seguridad de las personas y el desarrollo de las comunidades a
