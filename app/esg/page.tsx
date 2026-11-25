@@ -124,14 +124,18 @@ export default async function EsgPage() {
           </p>
           <h1 id="esg-heading" className="esg-title">
             <span className="lang-es" aria-hidden={lang !== 'es'}>
-              Un compromiso compartido
+              Un compromiso
               <br />
-              con las personas y el medioambiente
+              compartido con las personas
+              <br />
+              y el medioambiente
             </span>
             <span className="lang-en" aria-hidden={lang !== 'en'}>
-              A shared commitment
+              A shared
               <br />
-              to people and the environment
+              commitment to people
+              <br />
+              and the environment
             </span>
           </h1>
           <p className="esg-lede">

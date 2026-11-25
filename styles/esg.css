@@ -77,8 +77,8 @@
 
 .esg-title {
   font-family: var(--font-display);
-  /* Figma: sentence case 70px / leading 69 — no all-caps */
-  font-size: clamp(32px, min(4.6vw, 8vh), 70px);
+  /* Mismo tamaño que los títulos de las demás páginas */
+  font-size: clamp(42px, 4.6vw, 70px);
   font-weight: 700;
   line-height: 0.985;
   color: #fff;
