@@ -23,6 +23,26 @@ export const metadata = {
 const SUPABASE_POLITICA =
   'https://zmxlykfvbuadsuqjppqr.supabase.co/storage/v1/object/public/documents/politica'
 
+function politicaKey(title: string) {
+  const key = title
+    .trim()
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/\p{M}/gu, '')
+  if (key === 'politica de sas' || key === 'politica de seguridad, ambiente y salud') return 'politica-sas'
+  return key
+}
+
+function presentPolitica(es: string, en: string) {
+  if (politicaKey(es) === 'politica-sas') {
+    return {
+      es: 'Política de seguridad, ambiente y salud',
+      en: 'Safety, environment and health policy',
+    }
+  }
+  return { es, en: en || es }
+}
+
 const FALLBACK_DOCS = [
   {
     id: 'consumo',
@@ -33,8 +53,8 @@ const FALLBACK_DOCS = [
   },
   {
     id: 'sas',
-    es: 'Política de SAS',
-    en: 'SAS policy',
+    es: 'Política de seguridad, ambiente y salud',
+    en: 'Safety, environment and health policy',
     href: `${SUPABASE_POLITICA}/1784752815320-POLITICA_DE_SAS_.pdf`,
     tag: 'PDF' as const,
   },
@@ -95,10 +115,8 @@ export default async function EsgPage() {
   ])
   const politicas = (politicasRes.data ?? []) as PoliticaDoc[]
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-  const politicaTitles = new Set(
-    politicas.map(p => p.titulo_es.trim().toLowerCase()).filter(Boolean),
-  )
-  const fallbackDocs = FALLBACK_DOCS.filter(doc => !politicaTitles.has(doc.es.toLowerCase()))
+  const politicaTitles = new Set(politicas.map(p => politicaKey(p.titulo_es)).filter(Boolean))
+  const fallbackDocs = FALLBACK_DOCS.filter(doc => !politicaTitles.has(politicaKey(doc.es)))
 
   const f = s.fields
   const lang = await getEffectiveLang(s.lang as 'es' | 'en')
@@ -162,15 +180,16 @@ export default async function EsgPage() {
               <ul className="esg-docs">
                 {politicas.map(doc => {
                   const href = `${supabaseUrl}/storage/v1/object/public/documents/${doc.storage_path}`
+                  const title = presentPolitica(doc.titulo_es, doc.titulo_en)
                   return (
                     <li key={doc.id}>
                       <a className="esg-doc" href={href} target="_blank" rel="noreferrer">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img src="/esg/doc-icon.svg" alt="" width={17} height={22} />
                         <span>
-                          <span className="lang-es" aria-hidden={lang !== 'es'}>{doc.titulo_es}</span>
+                          <span className="lang-es" aria-hidden={lang !== 'es'}>{title.es}</span>
                           <span className="lang-en" aria-hidden={lang !== 'en'}>
-                            {doc.titulo_en || doc.titulo_es}
+                            {title.en}
                           </span>
                         </span>
                         <span className="esg-doc-tag">PDF</span>
